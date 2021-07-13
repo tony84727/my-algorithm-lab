@@ -1,4 +1,21 @@
+use std::collections::HashMap;
+
 pub struct Solution;
+
+struct NFA {
+    transaction_table: HashMap<u8, Vec<u32>>,
+    accept_states: Vec<u32>,
+}
+
+impl NFA {
+    fn build(pattern: &str) -> Self {
+        if pattern.len() <= 0 {
+            return Self {
+                transaction_table
+            }
+        }
+    }
+}
 
 impl Solution {
     pub fn is_match(s: String, p: String) -> bool {
