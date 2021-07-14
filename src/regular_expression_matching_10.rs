@@ -1,6 +1,10 @@
-use std::collections::HashMap;
+use std::{collections::HashMap, vec};
 
 pub struct Solution;
+
+fn get_alphabats() -> impl Iterator<Item=u8> {
+    97..=122
+}
 
 struct NFA {
     transaction_table: HashMap<u8, Vec<u32>>,
@@ -9,10 +13,29 @@ struct NFA {
 
 impl NFA {
     fn build(pattern: &str) -> Self {
+        let mut transaction_table = HashMap::new();
+        let mut accept_states = vec![];
         if pattern.len() <= 0 {
-            return Self {
-                transaction_table
+            accept_states.push(0);
+            for c in get_alphabats() {
+                transaction_table.entry(c).or_insert(vec![]).push(0);
             }
+            return Self {
+                transaction_table,
+                accept_states,
+            }
+        }
+        for c in pattern.chars() {
+            match c {
+                '*' => {
+                    for c in get_alphabats() {
+
+                    }
+                }
+            }
+        }
+        return Self {
+            transaction_table
         }
     }
 }
