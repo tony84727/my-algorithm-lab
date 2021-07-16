@@ -1,9 +1,5 @@
-use std::{
-    ascii::EscapeDefault,
-    collections::{HashMap, HashSet},
-    os::macos::raw::stat,
-    vec,
-};
+use std::{collections::{HashMap, HashSet}, vec};
+use core::hash::Hash;
 
 pub struct Solution;
 
@@ -17,6 +13,11 @@ enum Label {
     Epsilon,
 }
 
+struct DFA {
+    transactions: HashMap<char, u32>,
+    acceptable_state_list: HashSet<u32>,
+}
+
 struct NFA {
     transaction_table_map: HashMap<u32, HashMap<Label, Vec<u32>>>,
     accept_state: u32,
@@ -24,7 +25,7 @@ struct NFA {
 
 impl NFA {
     fn build(pattern: &str) -> Self {
-        let transaction_table_map = HashMap::new();
+        let mut transaction_table_map = HashMap::new();
         let mut last_state = 0;
         if pattern.len() <= 0 {
             let mut transaction = HashMap::new();
@@ -85,18 +86,55 @@ impl NFA {
         }
         state_list
     }
-}
 
-struct DFA {
-    transactions: HashMap<char, u32>,
-    acceptable_state_list: HashSet<u32>,
-}
+    fn get_closure_state(&self, state: u32, alphabet: char) -> CombinedState {
+        CombinedState::new(self.closure(state, alphabet))
+    }
 
-impl From<NFA> for DFA {
-    fn from(nfa: NFA) -> Self {
-        let mut stack =
+    fn is_accetabpe(&self, state: u32) -> bool {
+        self.accept_state == state
+    }
+
+    fn to_dfa(&self) -> DFA {
+        let mut visited_state = HashSet::new();
+        let first_state = CombinedState::new(vec![0]);
+        visited_state.insert(first_state.clone());
+        let mut stack = vec![first_state];
+        while !stack.is_empty() {
+            let state = stack.pop().unwrap();
+        }
+        DFA{
+            acceptable_state_list: vec![]
+            transactions:
+        }
     }
 }
+
+#[derive(Clone, PartialEq, Eq)]
+struct CombinedState(HashSet<u32>);
+
+impl Hash for CombinedState {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        for s in self.0.iter() {
+            state.write_u32(*s);
+        }
+    }
+}
+
+impl CombinedState {
+    fn new(states: Vec<u32>) -> Self {
+        let mut states = HashSet::new();
+        for s in states.into_iter() {
+            states.insert(s);
+        }
+        Self(states)
+    }
+    fn is_acceptable_by_nfa(&self, nfa: &NFA) -> bool {
+        self.0.contains(&nfa.accept_state)
+    }
+}
+
+
 
 impl Solution {
     pub fn is_match(s: String, p: String) -> bool {
@@ -118,5 +156,13 @@ mod tests {
             expected,
             Solution::is_match(input.to_string(), pattern.to_string())
         )
+    }
+
+    #[test]
+    fn test_nfa_closure() {
+        let nfa = NFA::build(".*.");
+        assert_eq!(vec![1],nfa.closure(0, 'a'));
+        assert_eq!(vec![1],nfa.closure(0, 'b'));
+        assert_eq!(vec![1,2], nfa.closure(1, 'a'))
     }
 }
