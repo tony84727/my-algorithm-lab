@@ -4,6 +4,13 @@ pub struct ListNode {
     pub next: Option<Box<ListNode>>,
 }
 
+impl ListNode {
+    #[inline]
+    fn new(val: i32) -> Self {
+        Self { next: None, val }
+    }
+}
+
 pub fn vec_to_list(numbers: Vec<i32>) -> Option<Box<ListNode>> {
     let mut out = None;
     for n in numbers.into_iter().rev() {
