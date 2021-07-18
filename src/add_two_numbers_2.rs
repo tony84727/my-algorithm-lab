@@ -1,6 +1,6 @@
 use crate::common::ListNode;
 
-struct Solution;
+pub struct Solution;
 
 impl Solution {
     pub fn add_two_numbers(
