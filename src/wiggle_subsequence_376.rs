@@ -1,6 +1,11 @@
-use core::num;
-
 pub struct Solution;
+
+#[derive(PartialEq)]
+enum Sign {
+    Plus,
+    Equal,
+   Minus, 
+}
 
 impl Solution {
     pub fn wiggle_max_length(nums: Vec<i32>) -> i32 {
@@ -11,34 +16,37 @@ impl Solution {
         return Self::calculate_longest_wiggle(sign) + 1;
     }
 
-    fn sign_sequence(nums: Vec<i32>) -> String {
+    fn sign_sequence(nums: Vec<i32>) -> Vec<Sign> {
         nums[0..nums.len()-1].iter().enumerate().map(|(i, n)| {
             let diff = nums[i+1] - *n;
             if diff > 0 {
-                '+'
+                Sign::Plus
             } else if diff == 0 {
-                '='
+                Sign::Equal
             } else {
-                '-'
+                Sign::Minus
             }
         }
-        ).filter(|s| *s != '=').collect()
+        ).filter(|s| *s == Sign::Equal).collect()
     }
 
-    fn calculate_longest_wiggle(sign_seq: String) -> i32 {
-        if sign_seq.len() <= 1 {
+    fn calculate_longest_wiggle(sign_seq: Vec<Sign>) -> i32 {
+        let l = sign_seq.len();
+        if l <= 1 {
             return 0;
         }
         let mut repeated = 0;
-        let mut last = ' ';
-        for c in sign_seq.chars() {
-            if c == last {
-                repeated += 1;
-            } else {
-                last = c;
+        let mut last = None;
+        for c in sign_seq.into_iter() {
+            if let Some(last) = &last {
+                if c == *last {
+                    repeated += 1;
+                    continue;
+                }
             }
+            last = Some(c);
         }
-        sign_seq.len() as i32 - repeated
+        l as i32 - repeated
     }
 }
 
