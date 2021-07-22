@@ -6,11 +6,13 @@ pub struct ListNode {
 
 impl ListNode {
     #[inline]
+    #[allow(dead_code)]
     fn new(val: i32) -> Self {
         Self { next: None, val }
     }
 }
 
+#[cfg(test)]
 pub fn vec_to_list(numbers: Vec<i32>) -> Option<Box<ListNode>> {
     let mut out = None;
     for n in numbers.into_iter().rev() {
@@ -19,6 +21,7 @@ pub fn vec_to_list(numbers: Vec<i32>) -> Option<Box<ListNode>> {
     out
 }
 
+#[cfg(test)]
 pub fn list_to_vec(list: Option<Box<ListNode>>) -> Vec<i32> {
     let mut out = vec![];
     let mut node = list;
