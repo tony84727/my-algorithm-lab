@@ -1,3 +1,5 @@
+use std::ops::{Deref, DerefMut};
+
 use crate::common::ListNode;
 
 pub struct Solution;
@@ -9,7 +11,8 @@ impl Solution {
     ) -> Option<Box<ListNode>> {
         let mut n1 = l1;
         let mut n2 = l2;
-        let mut out = None;
+        let mut head = None;
+        let mut next: Option<&Box<ListNode>> = None;
         while n1.is_some() || n2.is_some() {
             let number1 = n1.as_ref().map_or(101, |n| n.val);
             let number2 = n2.as_ref().map_or(101, |n| n.val);
@@ -22,12 +25,24 @@ impl Solution {
                     number1
                 }
             };
-            out = Some(Box::new(ListNode {
-                next: out,
-                val: next_number,
-            }));
+            let new_node = Box::new(ListNode::new(next_number));
+            // let new_node_ref = &new_node;
+            match next {
+                None => {
+                    head = Some(new_node);
+                    next = head.as_ref();
+                },
+                Some(n) => {
+                    (*n).next = Some(new_node);
+                    // (**n).next = Some(new_node);
+                }
+            }
+            // out = Some(Box::new(ListNode {
+            //     next: out,
+            //     val: next_number,
+            // }));
         }
-        Self::reverse_list(out)
+        head
     }
     fn reverse_list(list: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
         let mut reversed = None;
