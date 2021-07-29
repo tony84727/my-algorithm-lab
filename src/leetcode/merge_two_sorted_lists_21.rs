@@ -1,5 +1,4 @@
-use crate::common::ListNode;
-
+use crate::leetcode::common::ListNode;
 pub struct Solution;
 
 impl Solution {
@@ -46,7 +45,7 @@ impl Solution {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::common::{list_to_vec, vec_to_list};
+    use crate::leetcode::common::{list_to_vec, vec_to_list};
 
     #[test]
     fn test_example_1() {
