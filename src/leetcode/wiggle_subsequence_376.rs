@@ -6,7 +6,7 @@ impl Solution {
             return 0;
         }
         let sign = Self::sign_sequence(nums);
-        return Self::calculate_longest_wiggle(sign) + 1;
+        Self::calculate_longest_wiggle(sign) + 1
     }
 
     fn sign_sequence(nums: Vec<i32>) -> String {

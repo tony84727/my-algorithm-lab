@@ -29,7 +29,7 @@ impl Solution {
                 return false;
             }
         }
-        return !up;
+        !up
     }
 }
 

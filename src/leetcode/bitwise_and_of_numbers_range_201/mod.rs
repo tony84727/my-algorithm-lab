@@ -12,7 +12,7 @@ impl Solution {
                     continue 'check;
                 }
             }
-            accumulated = accumulated | 1 << n;
+            accumulated |= 1 << n;
         }
         accumulated
     }

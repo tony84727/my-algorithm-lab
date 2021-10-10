@@ -66,7 +66,7 @@ where
                 node.right.as_deref()
             }
         }
-        return false;
+        false
     }
 }
 
