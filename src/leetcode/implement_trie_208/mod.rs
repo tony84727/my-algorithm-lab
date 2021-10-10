@@ -6,9 +6,7 @@ pub struct Trie {
 
 impl Trie {
     pub fn new() -> Self {
-        Self {
-            root: TrieNode::new(String::new()),
-        }
+        Self::default()
     }
 
     pub fn insert(&mut self, word: String) {
@@ -47,6 +45,14 @@ impl Trie {
             };
         }
         true
+    }
+}
+
+impl Default for Trie {
+    fn default() -> Self {
+        Self {
+            root: TrieNode::new(String::new()),
+        }
     }
 }
 

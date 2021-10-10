@@ -10,17 +10,19 @@ impl Solution {
     }
 
     fn sign_sequence(nums: Vec<i32>) -> String {
-        nums[0..nums.len()-1].iter().enumerate().map(|(i, n)| {
-            let diff = nums[i+1] - *n;
-            if diff > 0 {
-                '+'
-            } else if diff == 0 {
-                '='
-            } else {
-                '-'
-            }
-        }
-        ).filter(|s| *s != '=').collect()
+        nums[0..nums.len() - 1]
+            .iter()
+            .enumerate()
+            .map(|(i, n)| {
+                let diff = nums[i + 1] - *n;
+                match diff {
+                    i if i > 0 => '+',
+                    i if i == 0 => '=',
+                    _ => '-',
+                }
+            })
+            .filter(|s| *s != '=')
+            .collect()
     }
 
     fn calculate_longest_wiggle(sign_seq: String) -> i32 {

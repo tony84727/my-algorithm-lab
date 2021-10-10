@@ -31,7 +31,7 @@ where
     pub fn insert(&mut self, value: T) {
         let mut current = self;
         loop {
-            if &current.value == &value {
+            if current.value == value {
                 return;
             }
             let side = if value < current.value {
