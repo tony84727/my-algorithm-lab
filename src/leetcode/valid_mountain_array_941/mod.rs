@@ -37,6 +37,8 @@ impl Solution {
 mod tests {
     use super::*;
     use test_case::test_case;
+
+    #[allow(clippy::bool_assert_comparison)]
     #[test_case(vec![2,1] => false; "example")]
     #[test_case(vec![3,5,5] => false; "case 1")]
     #[test_case(vec![2,0,2] => false; "case 2")]

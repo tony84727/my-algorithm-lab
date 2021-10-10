@@ -28,6 +28,7 @@ mod tests {
         true
     }
 
+    #[allow(clippy::bool_assert_comparison)]
     #[test_case(vec![1,2,3,4] => true; "case 1")]
     #[test_case(vec![1,3,2,4] => false; "case 2")]
     fn test_is_sorted(input: Vec<i32>) -> bool {
@@ -38,7 +39,6 @@ mod tests {
     #[test_case(vec![1,2,3,4,1,2,3,4] => vec![1,1,2,2,3,3,4,4]; "repeated")]
     #[test_case(vec![0,9,5,4,1,2,3,7,8] => vec![0,1,2,3,4,5,7,8,9]; "case 1")]
     fn test_insertion_sort(input: Vec<i32>) -> Vec<i32> {
-        
         insertion_sort(input)
     }
 }
