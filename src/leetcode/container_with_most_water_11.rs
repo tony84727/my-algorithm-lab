@@ -21,9 +21,9 @@ impl Solution {
                 max = area;
             }
             if h1 > h2 {
-                j = j - 1
+                j -= 1
             } else {
-                i = i + 1;
+                i += 1;
             }
             width = j - i;
         }

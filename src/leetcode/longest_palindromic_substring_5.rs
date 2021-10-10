@@ -2,7 +2,7 @@ pub struct Solution;
 
 impl Solution {
     pub fn longest_palindrome(s: String) -> String {
-        if s.len() <= 0 {
+        if s.is_empty() {
             return String::new();
         }
         let mut longest = None;

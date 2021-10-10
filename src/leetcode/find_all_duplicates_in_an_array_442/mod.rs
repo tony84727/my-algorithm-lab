@@ -2,7 +2,7 @@ pub struct Solution;
 
 impl Solution {
     pub fn find_duplicates(mut nums: Vec<i32>) -> Vec<i32> {
-        nums.sort();
+        nums.sort_unstable();
         let mut last = 0;
         let mut pointer = 0;
         while pointer < nums.len() {

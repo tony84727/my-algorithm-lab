@@ -2,8 +2,10 @@ use std::collections::HashSet;
 pub struct Solution;
 
 impl Solution {
+    // clippy false positive: https://github.com/rust-lang/rust-clippy/issues/6072
+    #[allow(clippy::mut_range_bound)]
     pub fn length_of_longest_substring(s: String) -> i32 {
-        if s.len() <= 0 {
+        if s.is_empty() {
             return 0;
         }
         let mut start = 0;
@@ -19,9 +21,9 @@ impl Solution {
             }
             let new_char = s[end];
             if characters.contains(&new_char) {
-                for i in start..end {
+                for (i, c) in s.iter().enumerate().take(end).skip(start) {
                     characters.remove(&s[i]);
-                    if s[i] == new_char {
+                    if c == &new_char {
                         start = i + 1;
                         break;
                     }

@@ -42,6 +42,7 @@ mod tests {
     use super::*;
     use test_case::test_case;
 
+    #[allow(clippy::bool_assert_comparison)]
     #[test_case("()" => true; "example 1")]
     #[test_case("()[]{}" => true; "example 2")]
     #[test_case("(]" => false; "example 3")]

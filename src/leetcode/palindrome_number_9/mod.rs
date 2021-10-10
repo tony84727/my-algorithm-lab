@@ -6,10 +6,10 @@ impl Solution {
             return false;
         }
         let x = x.to_string().chars().collect::<Vec<char>>();
-        for i in 0..x.len() / 2{
+        for i in 0..x.len() / 2 {
             let counterpart = x.len() - i - 1;
             if x[i] != x[counterpart] {
-                return false
+                return false;
             }
         }
         true
@@ -21,6 +21,7 @@ mod tests {
     use super::*;
     use test_case::test_case;
 
+    #[allow(clippy::bool_assert_comparison)]
     #[test_case(121 => true; "example 1")]
     #[test_case(-121 => false; "example 2")]
     #[test_case(10 => false; "example 3")]
