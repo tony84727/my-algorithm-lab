@@ -24,6 +24,20 @@ impl Solution {
         match root {
             None => 0,
             Some(root) => {
+                Self::get_height(
+                    root.deref()
+                        .borrow()
+                        .right
+                        .as_ref()
+                        .map(|right| right.clone()),
+                ) + Self::get_height(root.deref().borrow().left.as_ref().map(|left| left.clone()))
+            }
+        }
+    }
+    fn get_height(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
+        match root {
+            None => 0,
+            Some(root) => {
                 let mut count = 0;
                 let mut stack = VecDeque::new();
                 stack.push_back(root);
@@ -86,7 +100,9 @@ mod tests {
 
     #[test_case(&[1,2,3,4,5] => 3; "example 1")]
     #[test_case(&[1,2] => 1; "case 1")]
-    #[test_case(&[1] => 1; "case 2")]
+    #[test_case(&[1] => 0; "case 2")]
+    // -1 is a sentinel value, meaning null
+    #[test_case(&[2,3,-1,1] => 2; "case 3")]
     fn test_solution(elements: &[i32]) -> i32 {
         Solution::diameter_of_binary_tree(build_binary_tree(elements))
     }
