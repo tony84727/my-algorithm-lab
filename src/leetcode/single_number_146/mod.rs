@@ -2,7 +2,7 @@ pub struct Solution;
 
 impl Solution {
     pub fn single_number(mut nums: Vec<i32>) -> i32 {
-        nums.sort();
+        nums.sort_unstable();
         let mut counter = 0;
         let mut last = None;
         for n in nums.into_iter() {
