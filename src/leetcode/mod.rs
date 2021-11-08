@@ -1,3 +1,4 @@
+pub mod unique_binary_search_tree_96;
 pub mod missing_numer_268;
 pub mod add_two_numbers_2;
 pub mod bitwise_and_of_numbers_range_201;
