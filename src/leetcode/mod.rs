@@ -16,3 +16,4 @@ pub mod single_number_136;
 pub mod valid_mountain_array_941;
 pub mod valid_parentheses_20;
 pub mod wiggle_subsequence_376;
+pub mod number_of_valid_words_for_each_puzzle_1178;
