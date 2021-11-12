@@ -1,5 +1,6 @@
 pub mod add_two_numbers_2;
 pub mod algorithm_1413;
+pub mod algorithm_203;
 pub mod bitwise_and_of_numbers_range_201;
 mod common;
 pub mod construct_binary_search_tree_from_preorder_traversal_1008;
