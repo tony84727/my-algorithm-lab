@@ -1,3 +1,4 @@
+pub mod nxcbn;
 pub mod brute_force;
 
 #[cfg(test)]
