@@ -1,3 +1,4 @@
+pub mod algorithm_739;
 pub mod add_two_numbers_2;
 pub mod algorithm_1413;
 pub mod bitwise_and_of_numbers_range_201;
