@@ -19,6 +19,6 @@ impl Solution {
                 }
             }
         }
-        return solve(&mut table, m, n);
+        solve(&mut table, m, n)
     }
 }

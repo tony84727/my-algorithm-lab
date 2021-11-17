@@ -5,6 +5,6 @@ impl Solution {
         if m == 1 || n == 1 {
             return 1;
         }
-        return Solution::unique_paths(m - 1, n) + Solution::unique_paths(m, n - 1);
+        Solution::unique_paths(m - 1, n) + Solution::unique_paths(m, n - 1)
     }
 }
