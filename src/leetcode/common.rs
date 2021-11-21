@@ -1,4 +1,4 @@
-use std::{cell::RefCell, collections::VecDeque, ops::Deref, rc::Rc};
+use std::{cell::RefCell, rc::Rc};
 #[derive(PartialEq, Eq, Clone, Debug)]
 pub struct ListNode {
     pub val: i32,
@@ -50,13 +50,27 @@ impl TreeNode {
         }
     }
 
+    #[cfg(test)]
     /// Leetcode way to traverse a tree and gather the elements into a Vec. -1 is used as a sentinel value to avoid the need to use Option to represent
     /// a missing node
     pub fn traverse_natural_number(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
+        TreeNode::traverse(root)
+            .into_iter()
+            .map(|element| match element {
+                Some(element) => element,
+                None => -1,
+            })
+            .collect()
+    }
+
+    #[cfg(test)]
+    pub fn traverse(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<Option<i32>> {
+        use std::{collections::VecDeque, ops::Deref};
+
         let mut elements = vec![];
         let mut worklist = VecDeque::new();
         if let Some(node) = root.clone() {
-            elements.push(node.borrow().val);
+            elements.push(Some(node.borrow().val));
             worklist.push_back(root);
         }
         while !worklist.is_empty() {
@@ -68,20 +82,20 @@ impl TreeNode {
             }
             match &node.left {
                 Some(left) => {
-                    elements.push(left.borrow().val);
+                    elements.push(Some(left.borrow().val));
                     worklist.push_back(Some(left.clone()));
                 }
                 None => {
-                    elements.push(-1);
+                    elements.push(None);
                 }
             }
             match &node.right {
                 Some(right) => {
-                    elements.push(right.borrow().val);
+                    elements.push(Some(right.borrow().val));
                     worklist.push_back(Some(right.clone()));
                 }
                 None => {
-                    elements.push(-1);
+                    elements.push(None);
                 }
             }
         }
