@@ -1,0 +1,6 @@
+#![enable(implicit_some)]
+(
+	inorder: [2,1],
+	postorder: [2,1],
+	expected: [1,2,None]
+)

@@ -9,3 +9,5 @@ edition = "2018"
 
 [dev-dependencies]
 test-case = "1.2.0"
+ron = "0.7.0"
+serde = "1.0.130"
