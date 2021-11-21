@@ -55,6 +55,6 @@ mod tests {
 
     #[test_case(vec![8,5,1,7,10,12] => vec![8,5,10,1,7,-1,12]; "example 1")]
     fn test_solution(preorder: Vec<i32>) -> Vec<i32> {
-        TreeNode::traverse_binary_tree(Solution::bst_from_preorder(preorder))
+        TreeNode::traverse_natural_number(Solution::bst_from_preorder(preorder))
     }
 }

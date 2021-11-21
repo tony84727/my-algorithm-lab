@@ -50,7 +50,9 @@ impl TreeNode {
         }
     }
 
-    pub fn traverse_binary_tree(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
+    /// Leetcode way to traverse a tree and gather the elements into a Vec. -1 is used as a sentinel value to avoid the need to use Option to represent
+    /// a missing node
+    pub fn traverse_natural_number(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
         let mut elements = vec![];
         let mut worklist = VecDeque::new();
         if let Some(node) = root.clone() {
