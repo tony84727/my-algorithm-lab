@@ -1,3 +1,4 @@
+pub mod algorithm_952;
 pub mod algorithm_191;
 pub mod algorithm_540;
 pub mod algorithm_448;
