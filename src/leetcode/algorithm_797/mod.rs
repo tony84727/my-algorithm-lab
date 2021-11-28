@@ -1,3 +1,4 @@
+pub mod memoized;
 pub mod naive;
 
 #[cfg(test)]
@@ -16,7 +17,7 @@ mod tests {
     }
 
     #[test_case("example_1.ron")]
-    fn test_solution(test_case_path: &str) {
+    fn test_naive_solution(test_case_path: &str) {
         let file_path = PathBuf::new()
             .join("src/leetcode/algorithm_797")
             .join(test_case_path);
@@ -24,6 +25,17 @@ mod tests {
         assert_eq!(
             test_case.answer,
             naive::Solution::all_paths_source_target(test_case.input)
+        )
+    }
+    #[test_case("example_1.ron")]
+    fn test_memorized_solution(test_case_path: &str) {
+        let file_path = PathBuf::new()
+            .join("src/leetcode/algorithm_797")
+            .join(test_case_path);
+        let test_case: TestCase = test_utils::from_file(file_path);
+        assert_eq!(
+            test_case.answer,
+            memoized::Solution::all_paths_source_target(test_case.input)
         )
     }
 }
