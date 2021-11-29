@@ -7,7 +7,7 @@ impl Solution {
         let mut cache = HashMap::new();
         fn find_paths(
             cache: &mut HashMap<i32, Vec<Vec<i32>>>,
-            graph: &Vec<Vec<i32>>,
+            graph: &[Vec<i32>],
             from: i32,
             to: i32,
         ) -> Vec<Vec<i32>> {
@@ -20,7 +20,7 @@ impl Solution {
                     if next == to {
                         vec![vec![to, from]]
                     } else {
-                        find_paths(cache, &graph, next, to)
+                        find_paths(cache, graph, next, to)
                             .into_iter()
                             .filter(|paths| !paths.is_empty())
                             .map(|mut paths| {
