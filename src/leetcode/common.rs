@@ -31,3 +31,14 @@ pub fn list_to_vec(list: Option<Box<ListNode>>) -> Vec<i32> {
     }
     out
 }
+
+#[cfg(test)]
+pub mod test_utils {
+    use serde::de::DeserializeOwned;
+    use std::{fs::File, path::Path};
+
+    pub fn from_file<T: DeserializeOwned, P: AsRef<Path>>(path: P) -> T {
+        let mut f = File::open(path).unwrap();
+        ron::de::from_reader(&mut f).unwrap()
+    }
+}
