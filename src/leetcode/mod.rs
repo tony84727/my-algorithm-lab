@@ -1,7 +1,7 @@
-pub mod algorithm_85;
 pub mod add_two_numbers_2;
 pub mod algorithm_1413;
 pub mod algorithm_191;
+pub mod algorithm_198;
 pub mod algorithm_238;
 pub mod algorithm_35;
 pub mod algorithm_448;
@@ -12,6 +12,7 @@ pub mod algorithm_668;
 pub mod algorithm_721;
 pub mod algorithm_739;
 pub mod algorithm_797;
+pub mod algorithm_85;
 pub mod algorithm_986;
 pub mod bitwise_and_of_numbers_range_201;
 mod common;
