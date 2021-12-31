@@ -1,6 +1,7 @@
 pub mod complicate;
 pub mod complicate_reverse_assign;
 pub mod complicate_swap;
+pub mod mirror;
 pub struct Solution;
 
 #[cfg(test)]
@@ -32,7 +33,7 @@ mod tests {
 
     #[test_case("example1.ron")]
     #[test_case("case1.ron")]
-    fn test_complicate_reverse_assign(test_case: &str) {
+    fn test_complicate_reverse_assign_solution(test_case: &str) {
         let TestCase { mut input, answer } = from_file(
             PathBuf::new()
                 .join("src/leetcode/algorithm_48")
@@ -44,13 +45,25 @@ mod tests {
 
     #[test_case("example1.ron")]
     #[test_case("case1.ron")]
-    fn test_complicate_swap_assign(test_case: &str) {
+    fn test_complicate_swap_assign_solution(test_case: &str) {
         let TestCase { mut input, answer } = from_file(
             PathBuf::new()
                 .join("src/leetcode/algorithm_48")
                 .join(test_case),
         );
         complicate_swap::Solution::rotate(&mut input);
+        assert_eq!(answer, input);
+    }
+
+    #[test_case("example1.ron")]
+    #[test_case("case1.ron")]
+    fn test_mirror_solution(test_case: &str) {
+        let TestCase { mut input, answer } = from_file(
+            PathBuf::new()
+                .join("src/leetcode/algorithm_48")
+                .join(test_case),
+        );
+        mirror::Solution::rotate(&mut input);
         assert_eq!(answer, input);
     }
 }
