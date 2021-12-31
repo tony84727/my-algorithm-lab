@@ -5,7 +5,7 @@ impl Solution {
         fn find_paths(graph: &[Vec<i32>], from: i32, to: i32) -> Vec<Vec<i32>> {
             graph[from as usize]
                 .iter()
-                .map(|&next| {
+                .flat_map(|&next| {
                     if next == to {
                         vec![vec![to, from]]
                     } else {
@@ -19,7 +19,6 @@ impl Solution {
                             .collect()
                     }
                 })
-                .flatten()
                 .collect()
         }
         find_paths(&graph, 0, (graph.len() - 1) as i32)

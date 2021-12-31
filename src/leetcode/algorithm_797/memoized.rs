@@ -16,7 +16,7 @@ impl Solution {
             }
             let answer: Vec<Vec<i32>> = graph[from as usize]
                 .iter()
-                .map(|&next| {
+                .flat_map(|&next| {
                     if next == to {
                         vec![vec![to, from]]
                     } else {
@@ -30,7 +30,6 @@ impl Solution {
                             .collect()
                     }
                 })
-                .flatten()
                 .collect();
             cache.insert(from, answer.clone());
             answer
