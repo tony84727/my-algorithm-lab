@@ -10,6 +10,7 @@ mod tests {
 
     use super::*;
     use serde::Deserialize;
+    use test::Bencher;
     use test_case::test_case;
 
     #[derive(Deserialize)]
@@ -60,5 +61,26 @@ mod tests {
                     .map(|v| BTreeSet::from_iter(v.into_iter()))
             )
         );
+    }
+
+    const BENCH_INPUT: &[&str] = &[
+        "abc",
+        "cba",
+        "aaa",
+        "aaab",
+        "cccb",
+        "aaaaaaaaaaaaaaaaaaab",
+        "aaaaaaaaabaaaaaaaaa",
+    ];
+    #[bench]
+    fn bench_sort_solution(b: &mut Bencher) {
+        let input: Vec<String> = BENCH_INPUT.into_iter().map(|s| s.to_string()).collect();
+        b.iter(move || sort::Solution::group_anagrams(input.clone()))
+    }
+
+    #[bench]
+    fn bench_hash_btree_solution(b: &mut Bencher) {
+        let input: Vec<String> = BENCH_INPUT.into_iter().map(|s| s.to_string()).collect();
+        b.iter(move || hash_btree::Solution::group_anagrams(input.clone()))
     }
 }
