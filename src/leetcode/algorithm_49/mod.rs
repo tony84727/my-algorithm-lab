@@ -21,7 +21,10 @@ mod tests {
 
     #[test_case("example1.ron")]
     #[test_case("case1.ron")]
-    fn test_solution(str: &str) {
+    #[test_case("case2.ron")]
+    #[test_case("case3.ron")]
+    #[test_case("case4.ron")]
+    fn test_custom_hashing(str: &str) {
         let TestCase { input, answer } =
             from_file(PathBuf::new().join("src/leetcode/algorithm_49").join(str));
         assert_eq!(
@@ -40,6 +43,9 @@ mod tests {
 
     #[test_case("example1.ron")]
     #[test_case("case1.ron")]
+    #[test_case("case2.ron")]
+    #[test_case("case3.ron")]
+    #[test_case("case4.ron")]
     fn test_sort_solution(str: &str) {
         let TestCase { input, answer } =
             from_file(PathBuf::new().join("src/leetcode/algorithm_49").join(str));
@@ -59,6 +65,9 @@ mod tests {
 
     #[test_case("example1.ron")]
     #[test_case("case1.ron")]
+    #[test_case("case2.ron")]
+    #[test_case("case3.ron")]
+    #[test_case("case4.ron")]
     fn test_hash_btree_solution(str: &str) {
         let TestCase { input, answer } =
             from_file(PathBuf::new().join("src/leetcode/algorithm_49").join(str));
