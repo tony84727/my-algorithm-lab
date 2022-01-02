@@ -74,13 +74,13 @@ mod tests {
     ];
     #[bench]
     fn bench_sort_solution(b: &mut Bencher) {
-        let input: Vec<String> = BENCH_INPUT.into_iter().map(|s| s.to_string()).collect();
+        let input: Vec<String> = BENCH_INPUT.iter().map(|s| s.to_string()).collect();
         b.iter(move || sort::Solution::group_anagrams(input.clone()))
     }
 
     #[bench]
     fn bench_hash_btree_solution(b: &mut Bencher) {
-        let input: Vec<String> = BENCH_INPUT.into_iter().map(|s| s.to_string()).collect();
+        let input: Vec<String> = BENCH_INPUT.iter().map(|s| s.to_string()).collect();
         b.iter(move || hash_btree::Solution::group_anagrams(input.clone()))
     }
 }
