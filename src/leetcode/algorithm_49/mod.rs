@@ -1,4 +1,3 @@
-pub mod custom_hashing;
 pub mod hash_btree;
 pub mod sort;
 
@@ -17,28 +16,6 @@ mod tests {
     struct TestCase {
         input: Vec<String>,
         answer: Vec<Vec<String>>,
-    }
-
-    #[test_case("example1.ron")]
-    #[test_case("case1.ron")]
-    #[test_case("case2.ron")]
-    #[test_case("case3.ron")]
-    #[test_case("case4.ron")]
-    fn test_custom_hashing(str: &str) {
-        let TestCase { input, answer } =
-            from_file(PathBuf::new().join("src/leetcode/algorithm_49").join(str));
-        assert_eq!(
-            HashSet::<BTreeSet<String>>::from_iter(
-                answer
-                    .into_iter()
-                    .map(|v| BTreeSet::from_iter(v.into_iter()))
-            ),
-            HashSet::<BTreeSet<String>>::from_iter(
-                custom_hashing::Solution::group_anagrams(input)
-                    .into_iter()
-                    .map(|v| BTreeSet::from_iter(v.into_iter()))
-            )
-        );
     }
 
     #[test_case("example1.ron")]
