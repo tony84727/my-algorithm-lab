@@ -1,0 +1,4 @@
+(
+    input: ["eat","tea","tan","ate","nat","bat"],
+    answer: [["bat"],["nat","tan"],["ate","eat","tea"]],    
+)

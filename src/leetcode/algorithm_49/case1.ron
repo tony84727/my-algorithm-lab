@@ -1,0 +1,4 @@
+(
+    input: ["ddddddddddg","dgggggggggg"],
+    answer: [["dgggggggggg"],["ddddddddddg"]],
+)
