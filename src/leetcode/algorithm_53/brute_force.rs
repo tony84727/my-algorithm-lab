@@ -5,7 +5,7 @@ impl Solution {
         let mut max = None;
         for start in 0..nums.len() {
             for end in start..nums.len() {
-                let sum = nums[start..=end].iter().fold(0, |acc, c| acc + c);
+                let sum = nums.iter().skip(start).take(end - start + 1).sum();
                 match max {
                     None => {
                         max = Some(sum);
