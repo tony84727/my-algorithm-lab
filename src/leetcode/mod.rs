@@ -9,6 +9,7 @@ pub mod algorithm_461;
 pub mod algorithm_48;
 pub mod algorithm_49;
 pub mod algorithm_53;
+pub mod algorithm_54;
 pub mod algorithm_540;
 pub mod algorithm_62;
 pub mod algorithm_668;
