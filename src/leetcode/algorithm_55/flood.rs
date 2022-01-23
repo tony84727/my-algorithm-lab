@@ -9,8 +9,8 @@ impl Solution {
                 continue;
             }
             let n = n as usize;
-            for j in i..=(i + n).min(max) {
-                components[j] = true;
+            for connected in components.iter_mut().take((i + n).min(max) + 1).skip(i) {
+                *connected = true;
             }
         }
         components[max]
