@@ -2,17 +2,25 @@ pub struct Solution;
 
 impl Solution {
     pub fn merge(mut intervals: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
-        intervals.sort_unstable_by_key(|item| item[0]);
-        let mut current = 0;
-        while current < intervals.len() - 1 {
-            if intervals[current][1] >= intervals[current + 1][0]
-                && intervals[current][0] != intervals[current][1]
-            {
-                intervals[current + 1][0] = intervals[current][0].min(intervals[current + 1][0]);
-                intervals[current + 1][1] = intervals[current][1].max(intervals[current + 1][1]);
-                intervals.remove(current);
+        fn merging(intervals: &mut Vec<Vec<i32>>) {
+            intervals.sort_unstable_by_key(|item| item[0]);
+            let mut current = 0;
+            while current < intervals.len() - 1 {
+                if intervals[current][1] >= intervals[current + 1][0] {
+                    intervals[current + 1][0] = intervals[current][0];
+                    intervals[current + 1][1] =
+                        intervals[current][1].max(intervals[current + 1][1]);
+                    intervals.remove(current);
+                }
+                current += 1;
             }
-            current += 1;
+        }
+        loop {
+            let before = intervals.len();
+            merging(&mut intervals);
+            if before == intervals.len() {
+                break;
+            }
         }
         intervals
     }
@@ -38,6 +46,7 @@ mod tests {
     #[test_case("case2.ron")]
     #[test_case("case3.ron")]
     #[test_case("case4.ron")]
+    #[test_case("case5.ron")]
     fn test_merge_solution(path: &str) {
         let TestCase { input, answer }: TestCase =
             from_file(PathBuf::new().join("src/leetcode/algorithm_56").join(path));
