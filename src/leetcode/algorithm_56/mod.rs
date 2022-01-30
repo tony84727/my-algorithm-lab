@@ -8,6 +8,7 @@ mod tests {
 
     use super::*;
     use serde::Deserialize;
+    use test::Bencher;
     use test_case::test_case;
 
     #[derive(Deserialize)]
@@ -38,5 +39,23 @@ mod tests {
         let TestCase { input, answer }: TestCase =
             from_file(PathBuf::new().join("src/leetcode/algorithm_56").join(path));
         assert_eq!(answer, normal::Solution::merge(input));
+    }
+
+    #[bench]
+    fn bench_normal_soltuion(b: &mut Bencher) {
+        let TestCase { input, answer }: TestCase =
+            from_file("src/leetcode/algorithm_56/example1.ron");
+        b.iter(move || {
+            normal::Solution::merge(input.clone());
+        })
+    }
+
+    #[bench]
+    fn bench_convergence_soltuion(b: &mut Bencher) {
+        let TestCase { input, answer }: TestCase =
+            from_file("src/leetcode/algorithm_56/example1.ron");
+        b.iter(move || {
+            convergence::Solution::merge(input.clone());
+        })
     }
 }
