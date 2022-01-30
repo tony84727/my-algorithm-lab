@@ -1,4 +1,6 @@
 pub mod convergence;
+pub mod normal;
+
 #[cfg(test)]
 mod tests {
     use crate::leetcode::common::test_utils::from_file;
@@ -24,5 +26,17 @@ mod tests {
         let TestCase { input, answer }: TestCase =
             from_file(PathBuf::new().join("src/leetcode/algorithm_56").join(path));
         assert_eq!(answer, convergence::Solution::merge(input));
+    }
+
+    #[test_case("example1.ron")]
+    #[test_case("case1.ron")]
+    #[test_case("case2.ron")]
+    #[test_case("case3.ron")]
+    #[test_case("case4.ron")]
+    #[test_case("case5.ron")]
+    fn test_normal_solution(path: &str) {
+        let TestCase { input, answer }: TestCase =
+            from_file(PathBuf::new().join("src/leetcode/algorithm_56").join(path));
+        assert_eq!(answer, normal::Solution::merge(input));
     }
 }
