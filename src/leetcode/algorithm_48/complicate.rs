@@ -9,7 +9,7 @@ impl Solution {
 
     // (i, j) -> (c - y, x + c) -> (c + x, y + c) -> (c + (j - c), c - i + c) -> (j, 2*c - i)
 
-    pub fn rotate(matrix: &mut Vec<Vec<i32>>) {
+    pub fn rotate(matrix: &mut [Vec<i32>]) {
         let len = matrix.len();
         let mid = len / 2;
         for layer in 0..mid {

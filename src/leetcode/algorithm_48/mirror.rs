@@ -1,8 +1,8 @@
 pub struct Solution;
 
 impl Solution {
-    pub fn rotate(matrix: &mut Vec<Vec<i32>>) {
-        fn swap(matrix: &mut Vec<Vec<i32>>, ai: usize, aj: usize, bi: usize, bj: usize) {
+    pub fn rotate(matrix: &mut [Vec<i32>]) {
+        fn swap(matrix: &mut [Vec<i32>], ai: usize, aj: usize, bi: usize, bj: usize) {
             matrix[ai][aj] ^= matrix[bi][bj];
             matrix[bi][bj] ^= matrix[ai][aj];
             matrix[ai][aj] ^= matrix[bi][bj];

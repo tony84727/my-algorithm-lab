@@ -43,8 +43,10 @@ mod tests {
 
     #[bench]
     fn bench_normal_soltuion(b: &mut Bencher) {
-        let TestCase { input, answer }: TestCase =
-            from_file("src/leetcode/algorithm_56/example1.ron");
+        let TestCase {
+            input,
+            answer: _answer,
+        }: TestCase = from_file("src/leetcode/algorithm_56/example1.ron");
         b.iter(move || {
             normal::Solution::merge(input.clone());
         })
@@ -52,8 +54,10 @@ mod tests {
 
     #[bench]
     fn bench_convergence_soltuion(b: &mut Bencher) {
-        let TestCase { input, answer }: TestCase =
-            from_file("src/leetcode/algorithm_56/example1.ron");
+        let TestCase {
+            input,
+            answer: _answer,
+        }: TestCase = from_file("src/leetcode/algorithm_56/example1.ron");
         b.iter(move || {
             convergence::Solution::merge(input.clone());
         })
