@@ -2,10 +2,7 @@ pub mod back_trace;
 
 #[cfg(test)]
 mod tests {
-    use std::{
-        collections::{HashSet, VecDeque},
-        iter::FromIterator,
-    };
+    use std::{collections::HashSet, iter::FromIterator};
 
     use super::*;
     use crate::custom_macro::vecvec;
