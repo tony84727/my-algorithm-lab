@@ -1,5 +1,5 @@
 #[allow(dead_code)]
-
+#[allow(unused_macros)]
 /// Allowing define nested vector
 /// # Examples
 ///
@@ -12,9 +12,7 @@
 macro_rules! vecvec {
     ([$($element: expr),*]) => {
         {
-            let mut v = vec![];
-            $(v.push(vecvec!($element));)*
-            v
+            vec![$(vecvec!($element)),*]
         }
     };
     ($element: expr) => {
@@ -22,12 +20,11 @@ macro_rules! vecvec {
     };
     [ $($element:tt),* ] => {
         {
-            let mut v = vec![];
-            $(v.push(vecvec!($element));)*
-            v
+            vec![$(vecvec!($element)),*]
         }
     };
 }
 
+#[allow(unused_imports)]
 // https://stackoverflow.com/questions/26731243/how-do-i-use-a-macro-across-module-files
 pub(crate) use vecvec;
