@@ -1,5 +1,6 @@
 pub mod hash_set;
 pub mod inplace_flags;
+pub mod vector;
 
 #[cfg(test)]
 mod tests {
@@ -12,6 +13,14 @@ mod tests {
     #[test_case(vecvec![[1,2,3,4], [5,0,7,8], [0,10,11,12], [13,14,15,0]], vecvec![[0,0,3,0], [0,0,0,0], [0,0,0,0], [0,0,0,0]]; "case 3")]
     fn test_hash_set_solution(mut input: Vec<Vec<i32>>, expected: Vec<Vec<i32>>) {
         hash_set::Solution::set_zeroes(&mut input);
+        assert_eq!(expected, input);
+    }
+
+    #[test_case(vecvec![[0,0,0,5], [4,3,1,4], [0,1,1,4], [1,2,1,3], [0,0,1,1]],vecvec![[0,0,0,0], [0,0,0,4], [0,0,0,0], [0,0,0,3], [0,0,0,0]]; "case 1")]
+    #[test_case(vecvec![[0,1,2,0], [3,4,5,2], [1,3,1,5]], vecvec![[0,0,0,0], [0,4,5,0], [0,3,1,0]]; "case 2")]
+    #[test_case(vecvec![[1,2,3,4], [5,0,7,8], [0,10,11,12], [13,14,15,0]], vecvec![[0,0,3,0], [0,0,0,0], [0,0,0,0], [0,0,0,0]]; "case 3")]
+    fn test_vector_solution(mut input: Vec<Vec<i32>>, expected: Vec<Vec<i32>>) {
+        vector::Solution::set_zeroes(&mut input);
         assert_eq!(expected, input);
     }
 
