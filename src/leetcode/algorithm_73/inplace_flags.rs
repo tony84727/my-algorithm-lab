@@ -1,7 +1,7 @@
 pub struct Solution;
 
 impl Solution {
-    pub fn set_zeroes(matrix: &mut Vec<Vec<i32>>) {
+    pub fn set_zeroes(matrix: &mut [Vec<i32>]) {
         let width = matrix.first().map(|row| row.len()).unwrap_or(0);
         let mut first_column_zero = false;
         for row in 0..matrix.len() {
