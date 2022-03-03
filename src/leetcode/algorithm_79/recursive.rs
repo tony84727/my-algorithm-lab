@@ -14,7 +14,7 @@ impl Solution {
                 return true;
             }
             visited[from.0][from.1] = true;
-            let first = target.chars().nth(0).unwrap();
+            let first = target.chars().next().unwrap();
             // top
             if from.0 > 0 {
                 let next = (from.0 - 1, from.1);
@@ -22,10 +22,11 @@ impl Solution {
                     .get(next.0)
                     .and_then(|row| row.get(next.1))
                     .unwrap_or(&false);
-                if !is_visited && board[next.0][next.1] == first {
-                    if find(board, size, next, &target[1..], visited.clone()) {
-                        return true;
-                    }
+                if !is_visited
+                    && board[next.0][next.1] == first
+                    && find(board, size, next, &target[1..], visited.clone())
+                {
+                    return true;
                 }
             }
             // bottom
@@ -35,10 +36,11 @@ impl Solution {
                     .get(next.0)
                     .and_then(|row| row.get(next.1))
                     .unwrap_or(&false);
-                if !is_visited && board[next.0][next.1] == first {
-                    if find(board, size, next, &target[1..], visited.clone()) {
-                        return true;
-                    }
+                if !is_visited
+                    && board[next.0][next.1] == first
+                    && find(board, size, next, &target[1..], visited.clone())
+                {
+                    return true;
                 }
             }
             // left
@@ -48,10 +50,11 @@ impl Solution {
                     .get(next.0)
                     .and_then(|row| row.get(next.1))
                     .unwrap_or(&false);
-                if !is_visited && board[next.0][next.1] == first {
-                    if find(board, size, next, &target[1..], visited.clone()) {
-                        return true;
-                    }
+                if !is_visited
+                    && board[next.0][next.1] == first
+                    && find(board, size, next, &target[1..], visited.clone())
+                {
+                    return true;
                 }
             }
             // right
@@ -61,17 +64,18 @@ impl Solution {
                     .get(next.0)
                     .and_then(|row| row.get(next.1))
                     .unwrap_or(&false);
-                if !is_visited && board[next.0][next.1] == first {
-                    if find(board, size, next, &target[1..], visited.clone()) {
-                        return true;
-                    }
+                if !is_visited
+                    && board[next.0][next.1] == first
+                    && find(board, size, next, &target[1..], visited.clone())
+                {
+                    return true;
                 }
             }
             false
         }
         for h in 0..size.0 {
             for w in 0..size.1 {
-                let begin = word.chars().nth(0).unwrap();
+                let begin = word.chars().next().unwrap();
                 if board[h][w] == begin
                     && find(
                         &board,
