@@ -19,7 +19,7 @@ impl Solution {
             true
         }
         let mut right = 0;
-        let mut answer: Option<String> = None;
+        let mut answer: Option<&[char]> = None;
         let s: Vec<char> = s.chars().collect();
         let t = {
             let mut target = HashMap::<char, usize>::new();
@@ -43,10 +43,10 @@ impl Solution {
             if satisfy(&t, &meet) {
                 match answer {
                     Some(current) if right - left < current.len() => {
-                        answer = Some(s[left..right].iter().collect());
+                        answer = Some(&s[left..right]);
                     }
                     None => {
-                        answer = Some(s[left..right].iter().collect());
+                        answer = Some(&s[left..right]);
                     }
                     _ => (),
                 }
@@ -62,6 +62,6 @@ impl Solution {
             }
         }
 
-        answer.unwrap_or_default()
+        answer.unwrap_or_default().iter().collect()
     }
 }
