@@ -30,35 +30,52 @@ impl Solution {
         };
 
         let mut meet = HashMap::<char, usize>::new();
+        let mut is_satisfied = false;
 
         for (left, first) in s.iter().enumerate() {
-            while !satisfy(&t, &meet) && right < s.len() {
+            while !is_satisfied && right < s.len() {
                 // try to shrink by moving left
-                if t.contains_key(&s[right]) {
-                    // meet.insert(s[right]);
-                    *meet.entry(s[right]).or_default() += 1;
-                }
                 right += 1;
+                if t.contains_key(&s[right - 1]) {
+                    // meet.insert(s[right]);
+                    *meet.entry(s[right - 1]).or_default() += 1;
+                    if satisfy(&t, &meet) {
+                        is_satisfied = true;
+                        match answer {
+                            Some(current) if right - left < current.len() => {
+                                answer = Some(&s[left..right]);
+                            }
+                            None => {
+                                answer = Some(&s[left..right]);
+                            }
+                            _ => (),
+                        }
+                    }
+                }
             }
-            if satisfy(&t, &meet) {
-                match answer {
-                    Some(current) if right - left < current.len() => {
-                        answer = Some(&s[left..right]);
-                    }
-                    None => {
-                        answer = Some(&s[left..right]);
-                    }
-                    _ => (),
-                }
-                if let Some(count) = meet.get_mut(first) {
-                    if *count == 1 {
-                        meet.remove(first);
-                    } else {
+            if is_satisfied {
+                match t.get(first) {
+                    Some(&demand) => {
+                        let count = meet.get_mut(first).unwrap();
                         *count -= 1;
+                        if *count < demand {
+                            match answer {
+                                Some(current) if right - left < current.len() => {
+                                    answer = Some(&s[left..right]);
+                                }
+                                None => {
+                                    answer = Some(&s[left..right]);
+                                }
+                                _ => (),
+                            }
+                            if right >= s.len() {
+                                break;
+                            }
+                            is_satisfied = false;
+                        }
                     }
+                    None => (),
                 }
-            } else {
-                break;
             }
         }
 
