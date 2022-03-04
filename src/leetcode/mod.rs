@@ -1,3 +1,4 @@
+pub mod algorithm_79;
 pub mod algorithm_73;
 pub mod add_two_numbers_2;
 pub mod algorithm_1217;
