@@ -44,37 +44,44 @@ impl Scanning {
     fn is_satisfied(&self) -> bool {
         return self.missing.is_empty();
     }
+
+    fn is_important(&self, c: char) -> bool {
+        return self.to_find.contains_key(&c);
+    }
 }
 
 impl Solution {
     pub fn min_window(s: String, t: String) -> String {
         let mut scanning = Scanning::new(t);
-        let mut right = 0;
+        let mut left = 0;
         let mut answer: Option<&[char]> = None;
         let s: Vec<char> = s.chars().collect();
-        for (left, first) in s.iter().enumerate() {
-            while !scanning.is_satisfied() && right < s.len() {
-                // try to shrink by moving left
-                right += 1;
-                scanning.meet(s[right - 1]);
-            }
-            scanning.remove(*first);
-            if !scanning.is_satisfied() {
-                match answer {
-                    Some(current) if right - left < current.len() => {
-                        answer = Some(&s[left..right]);
+        for (right, &new) in s.iter().enumerate() {
+            if scanning.is_important(new) {
+                scanning.meet(new);
+                if scanning.is_satisfied() {
+                    while left <= right {
+                        let current_left = left;
+                        left += 1;
+                        if scanning.is_important(s[current_left]) {
+                            scanning.remove(s[current_left]);
+                            if !scanning.is_satisfied() {
+                                match answer {
+                                    Some(current) if right - current_left < current.len() => {
+                                        answer = Some(&s[current_left..=right]);
+                                    }
+                                    None => {
+                                        answer = Some(&s[current_left..=right]);
+                                    }
+                                    _ => (),
+                                }
+                                break;
+                            }
+                        }
                     }
-                    None => {
-                        answer = Some(&s[left..right]);
-                    }
-                    _ => (),
-                }
-                if right >= s.len() {
-                    break;
                 }
             }
         }
-
         answer.unwrap_or_default().iter().collect()
     }
 }
