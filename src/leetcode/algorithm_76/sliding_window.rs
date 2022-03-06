@@ -41,11 +41,11 @@ impl Scanning {
     }
 
     fn is_satisfied(&self) -> bool {
-        return self.missing == 0;
+        self.missing == 0
     }
 
     fn is_important(&self, c: char) -> bool {
-        return self.to_find.contains_key(&c);
+        self.to_find.contains_key(&c)
     }
 }
 
