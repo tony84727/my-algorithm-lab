@@ -1,16 +1,16 @@
-use std::collections::{HashMap, HashSet};
+use std::collections::{BTreeMap, BTreeSet};
 
 pub struct Solution;
 
 struct Scanning {
-    to_find: HashMap<char, i32>,
-    missing: HashSet<char>,
+    to_find: BTreeMap<char, i32>,
+    missing: BTreeSet<char>,
 }
 
 impl Scanning {
     fn new(target: String) -> Self {
-        let mut to_find = HashMap::<char, i32>::new();
-        let mut missing = HashSet::new();
+        let mut to_find = BTreeMap::<char, i32>::new();
+        let mut missing = BTreeSet::new();
         for c in target.chars() {
             *to_find.entry(c).or_default() += 1;
             missing.insert(c);
@@ -60,9 +60,7 @@ impl Solution {
             if scanning.is_important(new) {
                 scanning.meet(new);
                 if scanning.is_satisfied() {
-                    while left <= right {
-                        let current_left = left;
-                        left += 1;
+                    for current_left in left..right {
                         if scanning.is_important(s[current_left]) {
                             scanning.remove(s[current_left]);
                             if !scanning.is_satisfied() {
@@ -75,6 +73,7 @@ impl Solution {
                                     }
                                     _ => (),
                                 }
+                                left = current_left + 1;
                                 break;
                             }
                         }

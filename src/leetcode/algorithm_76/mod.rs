@@ -8,6 +8,7 @@ mod tests {
 
     #[test_case("ADOBECODEBANC", "ABC", "BANC"; "example 1")]
     #[test_case("a", "aa", ""; "case 1")]
+    #[test_case("a", "a", "a"; "case 2")]
     fn test_sliding_window_solution(s: &str, t: &str, expected: &str) {
         assert_eq!(
             expected.to_string(),
