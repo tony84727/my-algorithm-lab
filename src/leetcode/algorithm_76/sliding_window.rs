@@ -1,29 +1,28 @@
-use std::collections::{BTreeMap, BTreeSet};
+use std::collections::HashMap;
 
 pub struct Solution;
 
 struct Scanning {
-    to_find: BTreeMap<char, i32>,
-    missing: BTreeSet<char>,
+    to_find: HashMap<char, i32>,
+    missing: u32,
 }
 
 impl Scanning {
     fn new(target: String) -> Self {
-        let mut to_find = BTreeMap::<char, i32>::new();
-        let mut missing = BTreeSet::new();
+        let mut to_find = HashMap::<char, i32>::new();
         for c in target.chars() {
             *to_find.entry(c).or_default() += 1;
-            missing.insert(c);
         }
+        let missing = to_find.len() as u32;
         Self { to_find, missing }
     }
     fn meet(&mut self, c: char) {
         match self.to_find.get_mut(&c) {
             Some(count) => {
-                *count -= 1;
-                if *count <= 0 {
-                    self.missing.remove(&c);
+                if *count == 1 {
+                    self.missing -= 1;
                 }
+                *count -= 1;
             }
             None => (),
         }
@@ -32,17 +31,17 @@ impl Scanning {
     fn remove(&mut self, c: char) {
         match self.to_find.get_mut(&c) {
             Some(count) => {
-                *count += 1;
-                if *count > 0 {
-                    self.missing.insert(c);
+                if *count == 0 {
+                    self.missing += 1;
                 }
+                *count += 1;
             }
             None => (),
         }
     }
 
     fn is_satisfied(&self) -> bool {
-        return self.missing.is_empty();
+        return self.missing == 0;
     }
 
     fn is_important(&self, c: char) -> bool {
@@ -60,7 +59,7 @@ impl Solution {
             if scanning.is_important(new) {
                 scanning.meet(new);
                 if scanning.is_satisfied() {
-                    for current_left in left..right {
+                    for current_left in left..=right {
                         if scanning.is_important(s[current_left]) {
                             scanning.remove(s[current_left]);
                             if !scanning.is_satisfied() {
