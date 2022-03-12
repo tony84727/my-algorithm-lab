@@ -2,32 +2,36 @@ pub struct Solution;
 
 impl Solution {
     pub fn num_decodings(s: String) -> i32 {
+        if s.len() == 0 {
+            return 0;
+        }
         fn char_to_digit(c: char) -> u8 {
             ((c as u8) - 0x30) as u8
         }
         let digits: Vec<u8> = s.chars().map(char_to_digit).collect();
-        fn count_to_digits(s: &[u8]) -> Option<i32> {
-            let mut count = 0;
-            if s.len() == 0 {
-                return None;
-            }
-            if s.len() == 1 && s[0] == 0 {
-                return None;
-            }
-            for (i, d) in s.iter().enumerate().take(s.len() - 1) {
-                let next = s[i + 1];
-                match d {
-                    1 | 2 if next <= 6 => {
-                        count += 1;
-                    }
-                    _ => (),
-                }
-                if *d == 0 && (i == 0 || (s[i - 1] != 1 && s[i - 1] != 2)) {
-                    return None;
-                }
-            }
-            Some(count)
+        if digits[0] == 0 {
+            return 0;
         }
-        count_to_digits(&digits).unwrap_or(0)
+        let mut ways = vec![1, 1, 1];
+
+        for (i, &d) in digits.iter().enumerate().skip(1) {
+            let previous = digits[i - 1];
+            if d == 0 {
+                if previous == 1 || previous == 2 {
+                    ways.rotate_right(1);
+                    ways[0] = ways[2];
+                } else {
+                    return 0;
+                }
+                continue;
+            }
+            ways.rotate_right(1);
+            if (previous == 1 || previous == 2) && (previous * 10 + d <= 26) {
+                ways[0] = ways[1] + ways[2];
+            } else {
+                ways[0] = ways[1];
+            }
+        }
+        ways[0]
     }
 }
