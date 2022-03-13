@@ -2,7 +2,7 @@ pub struct Solution;
 
 impl Solution {
     pub fn num_decodings(s: String) -> i32 {
-        if s.len() == 0 {
+        if s.is_empty() {
             return 0;
         }
         let mut previous = 1;
