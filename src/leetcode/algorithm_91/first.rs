@@ -7,7 +7,8 @@ impl Solution {
         }
         let mut previous = 1;
         let mut ways = 1;
-        let mut digits = s.chars().map(|c| c as u8 - 0x30);
+        let digits = s.into_bytes();
+        let mut digits = digits.iter().map(|c| c - 0x30);
         let mut last = digits.next().unwrap();
         if last == 0 {
             return 0;
