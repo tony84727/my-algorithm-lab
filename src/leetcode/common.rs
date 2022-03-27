@@ -1,4 +1,4 @@
-use std::{cell::RefCell, rc::Rc};
+use std::{cell::RefCell, collections::VecDeque, ops::Deref, rc::Rc};
 #[derive(PartialEq, Eq, Clone, Debug)]
 pub struct ListNode {
     pub val: i32,
@@ -44,7 +44,7 @@ pub mod test_utils {
     }
 }
 
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, PartialEq, Eq, Default)]
 pub struct TreeNode {
     pub val: i32,
     pub left: Option<Rc<RefCell<TreeNode>>>,
@@ -59,5 +59,46 @@ impl TreeNode {
             left: None,
             right: None,
         }
+    }
+
+    pub fn from_preorder(preorder: Vec<Option<i32>>) -> Option<Rc<RefCell<TreeNode>>> {
+        if preorder.is_empty() {
+            return None;
+        }
+        let root = Rc::new(RefCell::new(TreeNode::new(
+            preorder.first().unwrap().expect("no leading nil"),
+        )));
+        let mut parents = VecDeque::new();
+        parents.push_back(Some(root.clone()));
+        let mut i = 1;
+        while !parents.is_empty() && i < preorder.len() {
+            let current = parents.pop_front().unwrap();
+            if let Some(current) = current {
+                let left = match preorder[i] {
+                    Some(value) => {
+                        let new_node = Rc::new(RefCell::new(TreeNode::new(value)));
+                        current.deref().borrow_mut().left = Some(new_node.clone());
+                        Some(new_node)
+                    }
+                    None => None,
+                };
+                parents.push_back(left);
+                i += 1;
+                if i >= preorder.len() {
+                    break;
+                }
+                let right = match preorder[i] {
+                    Some(value) => {
+                        let new_node = Rc::new(RefCell::new(TreeNode::new(value)));
+                        current.deref().borrow_mut().right = Some(new_node.clone());
+                        Some(new_node)
+                    }
+                    None => None,
+                };
+                parents.push_back(right);
+                i += 1;
+            }
+        }
+        Some(root)
     }
 }
