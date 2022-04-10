@@ -44,6 +44,18 @@ pub mod test_utils {
     }
 }
 
+fn parse_input(preorder: Vec<&str>) -> Vec<Option<i32>> {
+    preorder
+        .into_iter()
+        .map(|input| {
+            if input == "null" {
+                return None;
+            }
+            Some(input.parse().unwrap())
+        })
+        .collect()
+}
+
 #[derive(Debug, PartialEq, Eq, Default)]
 pub struct TreeNode {
     pub val: i32,
@@ -100,5 +112,9 @@ impl TreeNode {
             }
         }
         Some(root)
+    }
+
+    pub fn from_preorder_str(elements: Vec<&str>) -> Option<Rc<RefCell<TreeNode>>> {
+        Self::from_preorder(parse_input(elements))
     }
 }
