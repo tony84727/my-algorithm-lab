@@ -14,7 +14,7 @@ impl Solution {
                 left = mid + 1;
             }
         }
-        return left;
+        left
     }
 
     fn is_bad_version(&self, n: i32) -> bool {
