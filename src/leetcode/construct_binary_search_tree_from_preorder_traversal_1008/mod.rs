@@ -1,21 +1,5 @@
-use std::{cell::RefCell, ops::Deref, rc::Rc};
-#[derive(Debug, PartialEq, Eq)]
-pub struct TreeNode {
-    pub val: i32,
-    pub left: Option<Rc<RefCell<TreeNode>>>,
-    pub right: Option<Rc<RefCell<TreeNode>>>,
-}
-
-impl TreeNode {
-    #[inline]
-    pub fn new(val: i32) -> Self {
-        TreeNode {
-            val,
-            left: None,
-            right: None,
-        }
-    }
-}
+use super::common::TreeNode;
+use std::{cell::RefCell, rc::Rc};
 
 pub struct Solution;
 
@@ -23,8 +7,8 @@ impl Solution {
     fn insert_bst(root: Rc<RefCell<TreeNode>>, i: i32) {
         let mut current = root;
         loop {
-            if i < current.deref().borrow().val {
-                match &mut current.clone().deref().borrow_mut().left {
+            if i < current.borrow().val {
+                match &mut current.clone().borrow_mut().left {
                     Some(next) => {
                         current = next.clone();
                     }
@@ -34,7 +18,7 @@ impl Solution {
                     }
                 };
             } else {
-                match &mut current.clone().deref().borrow_mut().right {
+                match &mut current.clone().borrow_mut().right {
                     Some(next) => {
                         current = next.clone();
                     }
@@ -80,7 +64,7 @@ mod tests {
         while !worklist.is_empty() {
             let node = worklist.pop_front().unwrap();
             let node = node.unwrap();
-            let node = node.deref().borrow();
+            let node = node.borrow();
             if node.left.is_none() && node.right.is_none() {
                 continue;
             }
