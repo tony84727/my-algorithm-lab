@@ -6,6 +6,9 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+reqwest = {version = "0.11.10", features = ["cookies"]}
+scraper = "0.13.0"
+tokio = {version = "1", features = ["full"]}
 
 [dev-dependencies]
 test-case = "1.2.0"
