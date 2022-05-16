@@ -5,7 +5,7 @@ mod tests {
     use std::{collections::HashSet, iter::FromIterator};
 
     use super::*;
-    use crate::custom_macro::vecvec;
+    use crate::vecvec;
     use test_case::test_case;
 
     #[test_case(vec![1,2,3], vecvec![[1,2,3], [1,3,2], [2,1,3], [2,3,1], [3,2,1], [3,1,2]]; "example 1")]
