@@ -35,8 +35,8 @@ impl Solution {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::custom_macro::vecvec;
     use crate::leetcode::common::TreeNode;
+    use crate::vecvec;
     use test_case::test_case;
 
     #[test_case(vec!["3", "9", "20", "null", "null", "15", "7"] => vecvec![[3], [9,20], [15,7]]; "example 1")]
