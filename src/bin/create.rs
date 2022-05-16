@@ -69,21 +69,15 @@ impl Question {
             .append(true)
             .open("src/leetcode/mod.rs")
             .unwrap();
-        write!(&mut leetcode_lib, "pub mod {};\n", self.module_name()).unwrap();
+        writeln!(&mut leetcode_lib, "pub mod {};", self.module_name()).unwrap();
     }
 
     fn generate_readme_content<W: Write>(&self, mut writer: W) -> std::io::Result<()> {
-        write!(writer, "{}\n", self.title)?;
-        write!(
+        writeln!(writer, "{}", self.title)?;
+        writeln!(writer, "{}", "=".repeat(self.title.len()),)?;
+        writeln!(
             writer,
-            "{}\n",
-            std::iter::repeat('=')
-                .take(self.title.len())
-                .collect::<String>(),
-        )?;
-        write!(
-            writer,
-            "[leetcode](https://leetcode.com/problems/{})\n",
+            "[leetcode](https://leetcode.com/problems/{})",
             self.title_slug
         )?;
         Ok(())
@@ -184,8 +178,8 @@ impl LeetcodeScaper {
         self.client.get(url.clone()).send().await.unwrap();
         let value = self.cookie.cookies(&url).unwrap();
         let value = value.to_str().unwrap();
-        for segment in value.split(";") {
-            let mut segments = segment.split("=");
+        for segment in value.split(';') {
+            let mut segments = segment.split('=');
             let key = segments.next().unwrap().trim();
             let value = segments.next().unwrap().trim();
             if key == "csrftoken" {
