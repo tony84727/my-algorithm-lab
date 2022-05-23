@@ -12,14 +12,15 @@ impl Solution {
                 let (right_connectable, right) = find_max(root.right.clone());
                 let (left_connectable, left) = find_max(root.left.clone());
                 let node = root.val;
-                let to_parent = node.max(right_connectable + node)
-                        .max(left_connectable + node);
+                let to_parent = node
+                    .max(right_connectable + node)
+                    .max(left_connectable + node);
                 return (
                     to_parent,
                     right
                         .max(left)
                         .max(right_connectable + left_connectable + node)
-                        .max(to_parent)
+                        .max(to_parent),
                 );
             }
             (-1001, -1001)
