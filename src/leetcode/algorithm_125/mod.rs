@@ -1,4 +1,5 @@
 pub mod half_loop;
+pub mod reverse;
 
 #[cfg(test)]
 mod tests {
@@ -21,6 +22,17 @@ mod tests {
                 chars
             };
             (chars == reversed) == half_loop::Solution::is_palindrome(s)
+        }
+    }
+    quickcheck! {
+        fn quickcheck_xor_soltuion(s: String) -> bool {
+            let chars: Vec<char> = s.to_lowercase().chars().filter(|c| ('a'..='z').contains(c) || ('0'..='9').contains(c)).collect();
+            let reversed = {
+                let mut chars = chars.clone();
+                chars.reverse();
+                chars
+            };
+            (chars == reversed) == reverse::Solution::is_palindrome(s)
         }
     }
 }
