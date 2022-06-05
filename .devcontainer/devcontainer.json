@@ -24,8 +24,7 @@
 			"**/target/**": true
 		},
 		"rust-analyzer.checkOnSave.command": "clippy",
-		"editor.formatOnSave": true,
-		"terminal.integrated.defaultProfile.linux": "fish"
+		"editor.formatOnSave": true
 	},
 
 	// Add the IDs of extensions you want installed when the container is created.
@@ -50,7 +49,6 @@
 	"features": {
 		"git": "latest",
 		"git-lfs": "latest",
-		"github-cli": "latest",
-		"fish": "latest"
+		"github-cli": "latest"
 	}
 }
