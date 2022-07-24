@@ -18,6 +18,7 @@ jobs:
           override: true
           components: clippy
       - uses: actions/checkout@v2
+      - uses: Swatinem/rust-cache@v1
       - name: Run Clippy
         run: cargo clippy --all-targets --all-features -- -D warnings
   test:
@@ -30,6 +31,7 @@ jobs:
           toolchain: nightly
           override: true
       - uses: actions/checkout@v2
+      - uses: Swatinem/rust-cache@v1
       - name: Run tests
         run: cargo test
   bench:
@@ -42,5 +44,6 @@ jobs:
           toolchain: nightly
           override: true
       - uses: actions/checkout@v2
+      - uses: Swatinem/rust-cache@v1
       - name: Run Bench
         run: cargo bench
