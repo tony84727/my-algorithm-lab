@@ -2,57 +2,72 @@ pub struct Solution;
 
 impl Solution {
     pub fn num_islands(grid: Vec<Vec<char>>) -> i32 {
-        use std::collections::HashSet;
-        use std::iter::FromIterator;
+        use std::collections::HashMap;
         let row_lengh = grid.first().map(|f| f.len()).unwrap_or(0);
-        let mut components = vec![-1_i32; grid.len() * row_lengh];
-        fn union(components: &mut [i32], old: usize, new: usize) {
-            let old = if components[old] < 0 {
-                components[old] = old as i32;
-                old as i32
-            } else {
-                components[old]
-            };
-            let new = if components[new] < 0 {
-                components[new] = new as i32;
-                new as i32
-            } else {
-                components[new]
-            };
-            if new == old {
-                return;
+        struct Components {
+            components: HashMap<usize, Vec<usize>>,
+            lookup: HashMap<usize, usize>,
+        }
+        impl Components {
+            fn ensure(&mut self, id: usize) {
+                if self.lookup.contains_key(&id) {
+                    return;
+                }
+                self.lookup.insert(id, id);
+                self.components.insert(id, vec![id]);
             }
-            let to_repalce = old.max(new);
-            let union_id = old.min(new);
-            for n in components.iter_mut() {
-                if *n == to_repalce {
-                    *n = union_id;
+
+            fn replace_all(&mut self, from: usize, to: usize) {
+                let out = self.components.remove(&from).unwrap();
+                let entries = self.components.entry(to).or_insert(vec![]);
+                for land in out.into_iter() {
+                    self.lookup.insert(land, to);
+                    entries.push(land);
                 }
             }
+
+            fn count(self) -> usize {
+                self.components
+                    .into_iter()
+                    .filter(|(_, v)| v.len() > 0)
+                    .count()
+            }
+
+            fn merge(&mut self, a: usize, b: usize) {
+                self.ensure(a);
+                self.ensure(b);
+                let a = *self.lookup.get(&a).unwrap();
+                let b = *self.lookup.get(&b).unwrap();
+                let from = a.max(b);
+                let to = a.min(b);
+                self.replace_all(from, to);
+            }
         }
+        let mut component = Components {
+            components: HashMap::new(),
+            lookup: HashMap::new(),
+        };
         for (x, row) in grid.iter().enumerate() {
             for (y, &land) in row.iter().enumerate() {
                 if land == '0' {
                     continue;
                 }
                 let land_id = x * row_lengh + y;
-                if components[land_id] < 0 {
-                    components[land_id] = land_id as i32;
-                }
+                component.ensure(land_id);
                 if x < grid.len() - 1 && grid[x + 1][y] == '1' {
-                    union(&mut components, land_id, land_id + row_lengh);
+                    component.merge(land_id, land_id + row_lengh);
                 }
                 if y < row.len() - 1 && grid[x][y + 1] == '1' {
-                    union(&mut components, land_id, land_id + 1);
+                    component.merge(land_id, land_id + 1);
                 }
                 if x > 1 && grid[x - 1][y] == '1' {
-                    union(&mut components, land_id, land_id - row_lengh);
+                    component.merge(land_id, land_id - row_lengh);
                 }
                 if y > 1 && grid[x][y - 1] == '1' {
-                    union(&mut components, land_id, land_id - 1);
+                    component.merge(land_id, land_id - 1);
                 }
             }
         }
-        HashSet::<i32>::from_iter(components.into_iter().filter(|&x| x >= 0)).len() as i32
+        component.count() as i32
     }
 }
