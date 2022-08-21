@@ -29,7 +29,7 @@ impl Solution {
             fn count(self) -> usize {
                 self.components
                     .into_iter()
-                    .filter(|(_, v)| v.len() > 0)
+                    .filter(|(_, v)| !v.is_empty())
                     .count()
             }
 
