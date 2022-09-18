@@ -6,7 +6,7 @@ impl Solution {
     pub fn super_egg_drop(k: i32, n: i32) -> i32 {
         let max = (n as f32).log2().ceil() as i32 + 1;
         if k > 1 {
-            max.min(1 + (n as f32).log2().floor() as i32)
+            k + (n - 2_i32.pow((k - 2) as u32))
         } else {
             n
         }
