@@ -29,7 +29,7 @@ mod tests {
     use super::Solution;
     use test_case::test_case;
 
-    use crate::leetcode::common::{list_to_vec, vec_to_list, ListNode};
+    use crate::leetcode::common::{list_to_vec, vec_to_list};
 
     #[test_case(vec![1,2,3,4,5], 2 => vec![1,2,3,5]; "example 1")]
     #[test_case(vec![1],1 => Vec::<i32>::new(); "example 2")]
