@@ -17,26 +17,20 @@ impl Scanning {
         Self { to_find, missing }
     }
     fn meet(&mut self, c: char) {
-        match self.to_find.get_mut(&c) {
-            Some(count) => {
-                if *count == 1 {
-                    self.missing -= 1;
-                }
-                *count -= 1;
+        if let Some(count) = self.to_find.get_mut(&c) {
+            if *count == 1 {
+                self.missing -= 1;
             }
-            None => (),
+            *count -= 1;
         }
     }
 
     fn remove(&mut self, c: char) {
-        match self.to_find.get_mut(&c) {
-            Some(count) => {
-                if *count == 0 {
-                    self.missing += 1;
-                }
-                *count += 1;
+        if let Some(count) = self.to_find.get_mut(&c) {
+            if *count == 0 {
+                self.missing += 1;
             }
-            None => (),
+            *count += 1;
         }
     }
 

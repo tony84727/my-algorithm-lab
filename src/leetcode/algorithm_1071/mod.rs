@@ -2,7 +2,7 @@ pub struct Solution;
 
 impl Solution {
     pub fn gcd_of_strings(mut str1: String, mut str2: String) -> String {
-        while str1.len() != 0 && str2.len() != 0 {
+        while !str1.is_empty() && !str2.is_empty() {
             if str1.len() > str2.len() {
                 let (effective, result) = Self::trim(str1, &str2);
                 if !effective {

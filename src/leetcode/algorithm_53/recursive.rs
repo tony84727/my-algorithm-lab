@@ -9,10 +9,7 @@ impl Solution {
             let (&last, rest) = nums.split_last().unwrap();
             let (max, rest_max) = solve(max, rest);
             let local_max = (rest_max + last).max(last);
-            println!(
-                "{:?}, local_max = {}, new_element = {}",
-                nums, local_max, last
-            );
+            println!("{nums:?}, local_max = {local_max}, new_element = {last}");
             (if local_max > max { local_max } else { max }, local_max)
         }
         solve(i32::MIN, &nums).0

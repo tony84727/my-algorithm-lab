@@ -172,9 +172,8 @@ impl LeetcodeScaper {
     }
 
     async fn csrf_token(&self, id: i32) -> Option<(Url, String)> {
-        let url =
-            Url::parse(format!("https://leetcode.com/problemset/all/?search={}", id).as_str())
-                .unwrap();
+        let url = Url::parse(format!("https://leetcode.com/problemset/all/?search={id}").as_str())
+            .unwrap();
         self.client.get(url.clone()).send().await.unwrap();
         let value = self.cookie.cookies(&url).unwrap();
         let value = value.to_str().unwrap();

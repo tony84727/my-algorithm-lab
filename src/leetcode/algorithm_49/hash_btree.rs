@@ -23,8 +23,7 @@ impl Solution {
                     carry
                 },
             )
-            .into_iter()
-            .map(|(_, value)| value)
+            .into_values()
             .collect()
     }
 }
