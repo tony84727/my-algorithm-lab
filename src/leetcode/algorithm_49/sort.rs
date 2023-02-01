@@ -10,6 +10,6 @@ impl Solution {
             key.sort_unstable();
             buckets.entry(key).or_default().push(anagram);
         });
-        buckets.into_iter().map(|(_, value)| value).collect()
+        buckets.into_values().collect()
     }
 }
