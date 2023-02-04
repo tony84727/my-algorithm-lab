@@ -1,4 +1,5 @@
 pub mod brute;
+pub mod sliding_window;
 
 #[cfg(test)]
 mod tests {
@@ -8,7 +9,14 @@ mod tests {
     #[test_case("ab", "eidbaooo" => true; "example 1")]
     #[test_case("ab", "eidboaoo" => false; "example 2")]
     #[test_case("adc", "dcda" => true; "case 1")]
-    fn test_solution(s1: &str, s2: &str) -> bool {
+    fn test_brute_solution(s1: &str, s2: &str) -> bool {
         brute::Solution::check_inclusion(s1.to_owned(), s2.to_owned())
+    }
+
+    #[test_case("ab", "eidbaooo" => true; "example 1")]
+    #[test_case("ab", "eidboaoo" => false; "example 2")]
+    #[test_case("adc", "dcda" => true; "case 1")]
+    fn test_sliding_window_solution(s1: &str, s2: &str) -> bool {
+        sliding_window::Solution::check_inclusion(s1.to_owned(), s2.to_owned())
     }
 }
