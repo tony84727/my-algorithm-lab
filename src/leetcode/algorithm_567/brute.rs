@@ -11,7 +11,7 @@ impl Solution {
             }
             m
         };
-        'a: for (i, start) in s2.char_indices() {
+        'a: for i in 0..s2.len() {
             let mut remaining = target.clone();
             for end in s2.chars().skip(i) {
                 match remaining.get_mut(&end) {
