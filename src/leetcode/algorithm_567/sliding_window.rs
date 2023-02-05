@@ -35,9 +35,6 @@ impl Solution {
                     }
                 }
             }
-            if remaining.values().all(|&x| x == 0) {
-                return true;
-            }
             if let Some(count) = remaining.get_mut(&chars[start]) {
                 *count += 1;
             }
