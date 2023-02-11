@@ -31,8 +31,8 @@ impl Solution {
                 } else {
                     answer[current as usize] = answer[current as usize].min(path_len);
                 }
-                for node in edges.remove(&current).unwrap_or(vec![]).iter() {
-                    next.push((!next_red, *node, path_len + 1));
+                for node in edges.remove(&current).unwrap_or_default() {
+                    next.push((!next_red, node, path_len + 1));
                 }
             }
             std::mem::swap(&mut next, &mut to_visit);
