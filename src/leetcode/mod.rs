@@ -53,6 +53,7 @@ pub mod algorithm_953;
 pub mod algorithm_977;
 pub mod algorithm_98;
 pub mod algorithm_986;
+pub mod algorithm_989;
 pub mod bitwise_and_of_numbers_range_201;
 mod common;
 pub mod construct_binary_search_tree_from_preorder_traversal_1008;
