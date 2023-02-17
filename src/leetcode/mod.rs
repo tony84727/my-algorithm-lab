@@ -44,6 +44,7 @@ pub mod algorithm_721;
 pub mod algorithm_73;
 pub mod algorithm_739;
 pub mod algorithm_76;
+pub mod algorithm_783;
 pub mod algorithm_79;
 pub mod algorithm_797;
 pub mod algorithm_85;
