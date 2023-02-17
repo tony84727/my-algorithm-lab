@@ -5,36 +5,24 @@ use super::common::TreeNode;
 pub struct Solution;
 
 impl Solution {
+    fn travel(last: &mut Option<i32>, min: &mut i32, node: Rc<RefCell<TreeNode>>) {
+        let node = node.borrow();
+        if let Some(left) = &node.left {
+            Self::travel(last, min, left.clone());
+        }
+        let value = node.val;
+        if let Some(last) = last {
+            *min = (*min).min(value - *last);
+        }
+        *last = Some(value);
+        if let Some(right) = &node.right {
+            Self::travel(last, min, right.clone());
+        }
+    }
     pub fn min_diff_in_bst(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
         let mut min = i32::MAX;
-        let start = root.unwrap();
-        let value = start.borrow().val;
-        let mut right_min = start
-            .borrow()
-            .right
-            .as_ref()
-            .map(|n| n.borrow().val)
-            .unwrap_or(value);
-        let mut left_max = start
-            .borrow()
-            .left
-            .as_ref()
-            .map(|n| n.borrow().val)
-            .unwrap_or(value);
-        let mut to_visit = vec![start];
-        while let Some(current) = to_visit.pop() {
-            let value = current.borrow().val;
-            if let Some(left) = &current.borrow().left {
-                left_max = left_max.max(left.borrow().val);
-                min = min.min(right_min - left_max);
-                to_visit.push(left.clone());
-            }
-            if let Some(right) = &current.borrow().right {
-                right_min = right_min.min(right.borrow().val);
-                min = min.min(right_min - left_max);
-                to_visit.push(right.clone());
-            }
-        }
+        let mut last = None;
+        Self::travel(&mut last, &mut min, root.unwrap());
         min
     }
 }
