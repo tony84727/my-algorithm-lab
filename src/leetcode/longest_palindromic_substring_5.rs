@@ -31,7 +31,7 @@ impl Solution {
             find(i, i + 1);
         }
         let (start, end) = longest.unwrap();
-        s[(start..=end)].to_string()
+        s[start..=end].to_string()
     }
 }
 

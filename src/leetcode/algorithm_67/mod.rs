@@ -2,16 +2,8 @@ pub struct Solution;
 
 impl Solution {
     pub fn add_binary(a: String, b: String) -> String {
-        let mut a_bits = a
-            .chars()
-            .map(|c| c.to_digit(10).unwrap() as i8)
-            .into_iter()
-            .rev();
-        let mut b_bits = b
-            .chars()
-            .map(|c| c.to_digit(10).unwrap() as i8)
-            .into_iter()
-            .rev();
+        let mut a_bits = a.chars().map(|c| c.to_digit(10).unwrap() as i8).rev();
+        let mut b_bits = b.chars().map(|c| c.to_digit(10).unwrap() as i8).rev();
         let mut out = String::new();
         let mut carry = 0;
         loop {
