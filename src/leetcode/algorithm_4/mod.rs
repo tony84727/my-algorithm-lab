@@ -44,7 +44,7 @@ impl Solution {
     pub fn find_median_sorted_arrays(a: Vec<i32>, b: Vec<i32>) -> f64 {
         let odd = (a.len() + b.len()) % 2 == 1;
         let mut slow = None;
-        let mut slow_second = None;
+        let mut slow_second;
         let mut slow_iter = MergeIterator::new(a.iter(), b.iter());
         let mut fast_iter = MergeIterator::new(a.iter(), b.iter());
         'main: loop {
