@@ -3,22 +3,29 @@ pub struct Solution;
 impl Solution {
     fn subarray_combination(nums: &[i32], min_k: i32, max_k: i32) -> i64 {
         let mut count = 0;
-        for left in 0..nums.len() {
-            let mut min = 0;
-            let mut max = 0;
-            for &add in nums.iter().skip(left) {
-                if add == min_k {
-                    min += 1;
+        let mut min = 0;
+        let mut max = 0;
+        let mut left = 0;
+        for (right, &add) in nums.iter().enumerate() {
+            if add == min_k {
+                min += 1;
+            }
+            if add == max_k {
+                max += 1;
+            }
+            while min > 0 && max > 0 {
+                count += nums.len() - right;
+                let out = nums[left];
+                if out == min_k {
+                    min -= 1;
                 }
-                if add == max_k {
-                    max += 1;
+                if out == max_k {
+                    max -= 1;
                 }
-                if min > 0 && max > 0 {
-                    count += 1;
-                }
+                left += 1;
             }
         }
-        count
+        count as i64
     }
     pub fn count_subarrays(nums: Vec<i32>, min_k: i32, max_k: i32) -> i64 {
         let mut last = None;
