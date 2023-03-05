@@ -5,7 +5,7 @@ pub struct Solution;
 impl Solution {
     fn reachable(
         connected: &mut HashMap<i32, Vec<usize>>,
-        visited: &mut Vec<bool>,
+        visited: &mut [bool],
         arr: &[i32],
         i: usize,
     ) -> Option<Vec<usize>> {
@@ -46,7 +46,7 @@ impl Solution {
             connected.entry(*n).or_default().push(i);
         }
         'stepping: loop {
-            let current = std::mem::replace(&mut to_visit, vec![]);
+            let current = std::mem::take(&mut to_visit);
             for i in current.into_iter() {
                 let next_step = Self::reachable(&mut connected, &mut visisted, &arr, i);
                 match next_step {
