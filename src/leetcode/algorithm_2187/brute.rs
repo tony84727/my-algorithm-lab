@@ -3,7 +3,7 @@ pub struct Solution;
 impl Solution {
     pub fn minimum_time(mut time: Vec<i32>, mut total_trips: i32) -> i64 {
         let mut current_time = 1;
-        time.sort();
+        time.sort_unstable();
         loop {
             for n in time.iter() {
                 if current_time % *n as i64 == 0 {
