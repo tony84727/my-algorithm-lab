@@ -19,7 +19,7 @@ impl Solution {
                 elements
             })
             .collect::<Vec<i32>>();
-        all.sort();
+        all.sort_unstable();
         let mut out = None;
         for n in all.into_iter().rev() {
             out = Some(Box::new(ListNode { val: n, next: out }))
@@ -37,7 +37,7 @@ mod tests {
     #[test_case(vec![vec![1,4,5], vec![1,3,4], vec![2,6]] => vec![1,1,2,3,4,4,5,6]; "example 1")]
     fn test_solution(list: Vec<Vec<i32>>) -> Vec<i32> {
         list_to_vec(Solution::merge_k_lists(
-            list.into_iter().map(|x| vec_to_list(x)).collect(),
+            list.into_iter().map(vec_to_list).collect(),
         ))
     }
 }
