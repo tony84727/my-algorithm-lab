@@ -1,5 +1,6 @@
 pub mod add_two_numbers_2;
 pub mod algorithm_100;
+pub mod algorithm_101;
 pub mod algorithm_102;
 pub mod algorithm_1071;
 pub mod algorithm_109;
