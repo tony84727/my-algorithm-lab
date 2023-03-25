@@ -5,16 +5,15 @@ use std::rc::Rc;
 
 use super::common::TreeNode;
 impl Solution {
-    pub fn dfs_collect(root: Option<Rc<RefCell<TreeNode>>>, prefix: Vec<i32>) -> Vec<Vec<i32>> {
+    pub fn dfs_collect(root: Option<Rc<RefCell<TreeNode>>>, mut prefix: Vec<i32>) -> Vec<Vec<i32>> {
         match root {
             Some(root) => {
-                let mut new_prefix = prefix.clone();
-                new_prefix.push(root.borrow().val);
+                prefix.push(root.borrow().val);
                 if root.borrow().right.is_none() && root.borrow().left.is_none() {
-                    return vec![new_prefix];
+                    return vec![prefix];
                 }
-                let mut left = Self::dfs_collect(root.borrow().left.clone(), new_prefix.clone());
-                let mut right = Self::dfs_collect(root.borrow().right.clone(), new_prefix);
+                let mut left = Self::dfs_collect(root.borrow().left.clone(), prefix.clone());
+                let mut right = Self::dfs_collect(root.borrow().right.clone(), prefix);
                 left.append(&mut right);
                 left
             }
