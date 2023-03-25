@@ -12,7 +12,7 @@ impl Solution {
                 continue;
             }
             let mut endpoints = [connected[a] as usize, connected[b] as usize];
-            endpoints.sort();
+            endpoints.sort_unstable();
             let [to, from] = endpoints;
             for n in connected.iter_mut() {
                 if *n == from as i32 {
@@ -20,7 +20,7 @@ impl Solution {
                 }
             }
         }
-        connected.sort();
+        connected.sort_unstable();
         connected.dedup();
         (connected.len() - 1) as i32
     }
