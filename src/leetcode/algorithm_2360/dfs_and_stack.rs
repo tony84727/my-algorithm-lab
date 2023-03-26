@@ -5,11 +5,7 @@ impl Solution {
     pub fn longest_cycle(edges: Vec<i32>) -> i32 {
         let mut visited = vec![false; edges.len()];
         let mut longest = -1;
-        while let Some(start) = visited
-            .iter()
-            .enumerate()
-            .find_map(|(i, &x)| if x { None } else { Some(i) })
-        {
+        for start in 0..edges.len() {
             if edges[start] == -1 {
                 visited[start] = true;
                 continue;
