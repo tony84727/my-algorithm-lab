@@ -2,30 +2,29 @@ pub struct Solution;
 
 impl Solution {
     pub fn mincost_tickets(days: Vec<i32>, costs: Vec<i32>) -> i32 {
-        let mut minimums = vec![*costs.iter().min().unwrap()];
-        let mut lookback: [i32; 2] = [-1, -1];
+        let mut mins = vec![*costs.iter().min().unwrap()];
+        let mut next = vec![1, 1];
         for (i, d) in days.iter().enumerate().skip(1) {
-            while ((lookback[0] + 1) as usize) < i && d - (if lookback[0] == -1 {0} else {days[lookback[0] as usize]}) > 7 {
-                lookback[0] += 1;
+            while next[0] > 0 && next[0] < i && d - days[next[0] - 1] > 7 {
+                next[0] += 1;
             }
-            while ((lookback[1] + 1) as usize) < i && d - (if lookback[1] == -1 {0} else {days[lookback[1] as usize]}) > 30 {
-                lookback[1] += 1;
+            while next[1] > 0 && next[1] < i && d - days[next[1] - 1] > 30 {
+                next[1] += 1;
             }
-            let mut min = minimums[i - 1] + costs[0];
-            if lookback[0] == -1 {
+            let mut min = mins[i - 1] + costs[0];
+            if next[0] == 0 {
                 min = min.min(costs[1]);
-            }else if d - days[lookback[0] as usize] <= 7 {
-                min = min.min(minimums[lookback[0] as usize] + costs[1]);
+            } else if d - days[next[0] - 1] <= 7 {
+                min = min.min(mins[next[0] - 1] + costs[1]);
             }
-            if lookback[1] == -1 {
+            if next[1] == 0 {
                 min = min.min(costs[2]);
-            } else if d - days[lookback[1] as usize] <= 30 {
-                min = min.min(minimums[lookback[1] as usize] + costs[2]);
+            } else if d - days[next[1] - 1] <= 30 {
+                min = min.min(mins[next[1] - 1] + costs[2]);
             }
-            minimums.push(min);
-            println!("{minimums:?}");
+            mins.push(min);
         }
-        *minimums.last().unwrap()
+        *mins.last().unwrap()
     }
 }
 
