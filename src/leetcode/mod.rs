@@ -101,3 +101,4 @@ pub mod valid_parentheses_20;
 pub mod wiggle_subsequence_376;
 pub mod algorithm_1402;
 pub mod algorithm_87;
+pub mod algorithm_1444;
