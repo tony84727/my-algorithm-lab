@@ -6,9 +6,9 @@ impl Solution {
         let column = pizza.first().map(|x| x.len()).unwrap();
         let apples = Self::apples(pizza);
         let mut dp = vec![vec![vec![0; column]; row]; k as usize];
-        for i in 0..row {
-            for j in 0..column {
-                dp[0][i][j] = if apples[i][j] > 0 { 1 } else { 0 };
+        for (i, row) in apples.iter().enumerate().take(row) {
+            for (j, &count) in row.iter().enumerate().take(column) {
+                dp[0][i][j] = if count > 0 { 1 } else { 0 };
             }
         }
         for remain in 1..(k as usize) {
