@@ -1,16 +1,32 @@
+use std::collections::HashMap;
+
 pub struct Solution;
 
 impl Solution {
     pub fn num_ways(words: Vec<String>, target: String) -> i32 {
         let chars = target.chars().collect::<Vec<char>>();
-        let words: Vec<Vec<char>> = words.into_iter().map(|s| s.chars().collect()).collect();
-        let mut dp = vec![vec![None; chars.len()]; words[0].len() + 1];
+        let dictionary_length = words[0].len();
+        let words = Self::index_chars(words);
+        let mut dp = vec![vec![None; chars.len()]; dictionary_length + 1];
         Self::ways(&mut dp, &words, &chars, 0, 0)
+    }
+
+    fn index_chars(words: Vec<String>) -> Vec<HashMap<char, Vec<usize>>> {
+        words
+            .into_iter()
+            .map(|s| {
+                let mut index = HashMap::<char, Vec<usize>>::new();
+                for (i, c) in s.char_indices() {
+                    index.entry(c).or_default().push(i);
+                }
+                index
+            })
+            .collect()
     }
 
     fn ways(
         dp: &mut Vec<Vec<Option<i32>>>,
-        words: &Vec<Vec<char>>,
+        words: &Vec<HashMap<char, Vec<usize>>>,
         chars: &[char],
         i: usize,
         start: usize,
@@ -24,9 +40,11 @@ impl Solution {
         let head = chars[start];
         let mut ways = 0_i64;
         for w in words.iter() {
-            for (i, c) in w.iter().enumerate().skip(i) {
-                if *c == head {
-                    ways += Self::ways(dp, words, chars, i + 1, start + 1) as i64;
+            if let Some(indexes) = w.get(&head) {
+                for char_index in indexes.iter() {
+                    if *char_index >= i {
+                        ways += Self::ways(dp, words, chars, char_index + 1, start + 1) as i64;
+                    }
                 }
             }
         }
