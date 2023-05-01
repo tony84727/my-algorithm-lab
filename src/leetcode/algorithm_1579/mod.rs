@@ -84,7 +84,7 @@ impl UnionFind {
             return false;
         }
         if a.borrow().rank > b.borrow().rank {
-            b.borrow_mut().parent = Some(a.clone());
+            b.borrow_mut().parent = Some(a);
         } else {
             a.borrow_mut().parent = Some(b.clone());
             if a.borrow().rank == b.borrow().rank {
