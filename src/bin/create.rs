@@ -171,9 +171,8 @@ impl LeetcodeScaper {
         Self { client, cookie }
     }
 
-    async fn csrf_token(&self, id: i32) -> Option<(Url, String)> {
-        let url = Url::parse(format!("https://leetcode.com/problemset/all/?search={id}").as_str())
-            .unwrap();
+    async fn csrf_token(&self) -> Option<(Url, String)> {
+        let url = Url::parse("https://leetcode.com/problems/two-sum").unwrap();
         self.client.get(url.clone()).send().await.unwrap();
         let value = self.cookie.cookies(&url).unwrap();
         let value = value.to_str().unwrap();
@@ -189,7 +188,7 @@ impl LeetcodeScaper {
     }
 
     async fn search_questioin(&self, id: i32) -> Vec<Question> {
-        let (url, token) = self.csrf_token(id).await.unwrap();
+        let (url, token) = self.csrf_token().await.unwrap();
         let id = id.to_string();
         let request = SearchQuery::new(&id);
         let response = self
