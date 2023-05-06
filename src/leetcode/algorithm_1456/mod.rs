@@ -25,10 +25,7 @@ impl Solution {
     }
 
     fn is_vowel(c: char) -> bool {
-        match c {
-            'a' | 'e' | 'i' | 'o' | 'u' => true,
-            _ => false,
-        }
+        matches!(c, 'a' | 'e' | 'i' | 'o' | 'u')
     }
 }
 
