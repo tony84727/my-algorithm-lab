@@ -32,7 +32,7 @@ impl Solution {
                 count %= modulo;
             }
         }
-        count as i32
+        count
     }
 }
 

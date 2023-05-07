@@ -4,7 +4,7 @@ impl Solution {
         if (n - 1) as usize > connections.len() {
             return -1;
         }
-        let mut connected = (0..n).into_iter().collect::<Vec<i32>>();
+        let mut connected = (0..n).collect::<Vec<i32>>();
         for connection in connections.into_iter() {
             let a = connection[0] as usize;
             let b = connection[1] as usize;

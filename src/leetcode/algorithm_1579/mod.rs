@@ -69,7 +69,7 @@ struct UnionFind {
 
 impl UnionFind {
     fn new(size: i32) -> Self {
-        let sets = (0..size).into_iter().map(Node::new).collect();
+        let sets = (0..size).map(Node::new).collect();
         Self { sets }
     }
 
@@ -78,8 +78,8 @@ impl UnionFind {
     }
 
     fn union(&self, a: i32, b: i32) -> bool {
-        let a = self.find(self.lookup(a));
-        let b = self.find(self.lookup(b));
+        let a = Self::find(self.lookup(a));
+        let b = Self::find(self.lookup(b));
         if a == b {
             return false;
         }
@@ -94,11 +94,11 @@ impl UnionFind {
         true
     }
 
-    fn find(&self, x: Rc<RefCell<Node>>) -> Rc<RefCell<Node>> {
+    fn find(x: Rc<RefCell<Node>>) -> Rc<RefCell<Node>> {
         let mut node = x.borrow_mut();
         match &node.parent {
             Some(parent) => {
-                let found = self.find(parent.clone());
+                let found = Self::find(parent.clone());
                 node.parent = Some(found.clone());
                 found
             }
