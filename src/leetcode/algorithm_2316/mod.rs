@@ -42,11 +42,11 @@ impl UnionFind {
     fn get_set(&self, value: i32) -> Rc<RefCell<Node>> {
         self.sets[value as usize].clone()
     }
-    fn find_set(&self, x: Rc<RefCell<Node>>) -> Rc<RefCell<Node>> {
+    fn find_set(x: Rc<RefCell<Node>>) -> Rc<RefCell<Node>> {
         let mut node = x.borrow_mut();
         match &node.parent {
             Some(parent) => {
-                let found = self.find_set(parent.clone());
+                let found = Self::find_set(parent.clone());
                 node.parent = Some(found.clone());
                 found
             }
@@ -56,7 +56,7 @@ impl UnionFind {
     fn union(&self, a: i32, b: i32) {
         let a = self.get_set(a);
         let b = self.get_set(b);
-        self.link(self.find_set(a), self.find_set(b));
+        self.link(Self::find_set(a), Self::find_set(b));
     }
 
     fn link(&self, a: Rc<RefCell<Node>>, b: Rc<RefCell<Node>>) {

@@ -15,7 +15,7 @@ mod tests {
 
     quickcheck! {
         fn quickcheck_loop_soltuion(s: String) -> bool {
-            let chars: Vec<char> = s.to_lowercase().chars().filter(|c| ('a'..='z').contains(c) || ('0'..='9').contains(c)).collect();
+            let chars: Vec<char> = s.to_lowercase().chars().filter(|c| c.is_ascii_lowercase() || c.is_ascii_digit()).collect();
             let reversed = {
                 let mut chars = chars.clone();
                 chars.reverse();
@@ -26,7 +26,7 @@ mod tests {
     }
     quickcheck! {
         fn quickcheck_xor_soltuion(s: String) -> bool {
-            let chars: Vec<char> = s.to_lowercase().chars().filter(|c| ('a'..='z').contains(c) || ('0'..='9').contains(c)).collect();
+            let chars: Vec<char> = s.to_lowercase().chars().filter(|c| c.is_ascii_lowercase() || c.is_ascii_digit()).collect();
             let reversed = {
                 let mut chars = chars.clone();
                 chars.reverse();
