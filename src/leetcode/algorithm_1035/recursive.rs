@@ -12,6 +12,6 @@ impl Solution {
         if nums1.first() == nums2.first() {
             return Self::link_first(&nums1[1..], &nums2[1..]) + 1;
         }
-        Self::link_first(&nums1, &nums2[1..]).max(Self::link_first(&nums1[1..], &nums2))
+        Self::link_first(nums1, &nums2[1..]).max(Self::link_first(&nums1[1..], nums2))
     }
 }
