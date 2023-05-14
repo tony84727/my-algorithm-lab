@@ -7,7 +7,7 @@ impl Solution {
         let zero = zero as usize;
         let one = one as usize;
         let prime = 1000000007;
-        let mut string_ways_of_lengths = vec![0; high as usize + 1];
+        let mut string_ways_of_lengths = vec![0; high + 1];
         string_ways_of_lengths[0] = 1;
         let mut ways = 0;
         for i in 1..=high {
