@@ -30,7 +30,7 @@ impl Solution {
     }
 
     fn multiplied(nums: &[i32]) -> i32 {
-        nums.into_iter()
+        nums.iter()
             .enumerate()
             .map(|(i, a)| (i + 1) as i32 * a)
             .sum()
