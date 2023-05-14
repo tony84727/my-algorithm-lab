@@ -2,29 +2,38 @@ pub struct Solution;
 
 impl Solution {
     pub fn max_score(nums: Vec<i32>) -> i32 {
-        let n = nums.len() / 2;
-        let mut max = 0;
+        let mut sequence = Self::solve(nums);
+        sequence.sort();
+        Self::multiplied(&sequence)
+    }
 
-        let mut pairs = nums.clone();
-        pairs.rotate_right(n);
-        for _ in 0..n {
-            let mut gcd_results = nums
-                .iter()
-                .enumerate()
-                .take(n)
-                .map(|(i, a)| Self::gcd(*a, pairs[i]))
-                .collect::<Vec<i32>>();
-            gcd_results.sort();
-            max = max.max(
-                gcd_results
-                    .into_iter()
-                    .enumerate()
-                    .map(|(i, n)| (i + 1) as i32 * n)
-                    .sum(),
-            );
-            pairs.rotate_right(1);
+    fn solve(mut nums: Vec<i32>) -> Vec<i32> {
+        if nums.len() == 2 {
+            return vec![Self::gcd(nums[0], nums[1])];
         }
-        max
+        let mut max = 0;
+        let mut max_sequence = vec![];
+        let first = nums.pop().unwrap();
+        for pair_of_first in 0..nums.len() {
+            let mut nums = nums.clone();
+            let pair = nums.swap_remove(pair_of_first);
+            let mut sequence = Self::solve(nums.clone());
+            sequence.push(Self::gcd(first, pair));
+            sequence.sort();
+            let sum = Self::multiplied(&sequence);
+            if sum > max {
+                max = sum;
+                max_sequence = sequence;
+            }
+        }
+        max_sequence
+    }
+
+    fn multiplied(nums: &[i32]) -> i32 {
+        nums.into_iter()
+            .enumerate()
+            .map(|(i, a)| (i + 1) as i32 * a)
+            .sum()
     }
 
     fn gcd(mut a: i32, mut b: i32) -> i32 {
