@@ -8,7 +8,7 @@ pub struct ListNode {
 impl ListNode {
     #[inline]
     #[allow(dead_code)]
-    fn new(val: i32) -> Self {
+    pub fn new(val: i32) -> Self {
         Self { next: None, val }
     }
 }
