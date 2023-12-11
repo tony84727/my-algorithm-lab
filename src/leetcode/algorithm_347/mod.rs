@@ -28,8 +28,8 @@ mod tests {
 
     #[test_case(vec![1,1,1,2,2,3], 2,vec![1,2]; "example 1")]
     fn test_solution(nums: Vec<i32>, k: i32, expected: Vec<i32>) {
-        let expected: HashSet<i32> = HashSet::from_iter(expected.into_iter());
-        let result = HashSet::from_iter(Solution::top_k_frequent(nums, k).into_iter());
+        let expected: HashSet<i32> = HashSet::from_iter(expected);
+        let result = HashSet::from_iter(Solution::top_k_frequent(nums, k));
         assert_eq!(expected, result);
     }
 }
