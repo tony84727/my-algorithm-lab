@@ -3,9 +3,9 @@ pub struct Solution;
 impl Solution {
     pub fn int_to_roman(mut num: i32) -> String {
         let mut encoded = String::new();
-        let ones = vec!["I", "X", "C", "M"];
-        let middles = vec!["V", "L", "D", ""];
-        let tens = vec!["X", "C", "M", ""];
+        let ones = ["I", "X", "C", "M"];
+        let middles = ["V", "L", "D", ""];
+        let tens = ["X", "C", "M", ""];
         for i in (0..4).rev() {
             let n = num / 10_i32.pow(i);
             num %= 10_i32.pow(i);

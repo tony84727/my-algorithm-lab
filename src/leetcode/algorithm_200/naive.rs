@@ -19,7 +19,7 @@ impl Solution {
 
             fn replace_all(&mut self, from: usize, to: usize) {
                 let out = self.components.remove(&from).unwrap();
-                let entries = self.components.entry(to).or_insert(vec![]);
+                let entries = self.components.entry(to).or_default();
                 for land in out.into_iter() {
                     self.lookup.insert(land, to);
                     entries.push(land);

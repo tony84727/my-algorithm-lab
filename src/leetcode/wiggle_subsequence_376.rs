@@ -17,7 +17,7 @@ impl Solution {
                 let diff = nums[i + 1] - *n;
                 match diff {
                     i if i > 0 => '+',
-                    i if i == 0 => '=',
+                    0 => '=',
                     _ => '-',
                 }
             })

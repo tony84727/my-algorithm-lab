@@ -21,7 +21,7 @@ impl Solution {
         out
     }
 
-    fn swap(values: &mut Vec<i32>) {
+    fn swap(values: &mut [i32]) {
         for i in (0..values.len()).skip(1).filter(|x| x % 2 != 0) {
             values.swap(i - 1, i);
         }
