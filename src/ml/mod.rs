@@ -29,13 +29,13 @@ fn mat_scale(mat: &mut Mat<f32>, scale: f32) {
 }
 
 fn mat_sum_rows(mat: Mat<f32>) -> Mat<f32> {
-    return Mat::from_fn(mat.nrows(), 1, |row, _column| {
+    Mat::from_fn(mat.nrows(), 1, |row, _column| {
         let mut sum = 0_f32;
         for column in 0..mat.ncols() {
             sum += mat.read(row, column);
         }
         sum
-    });
+    })
 }
 
 fn compute_gradient(x: &Mat<f32>, y: &Mat<f32>, weights: &Mat<f32>) -> Mat<f32> {
