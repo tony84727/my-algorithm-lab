@@ -11,8 +11,17 @@ tokio = {version = "1", features = ["full"]}
 serde = {version = "1", features = ["derive"]}
 json = "0"
 faer = "0"
+ron = "0"
 
 [dev-dependencies]
 test-case = "3"
-ron = "0"
 quickcheck = "1"
+criterion = "0"
+
+[[bench]]
+name = "leetcode"
+harness = false
+
+[[bench]]
+name = "classic"
+harness = false
