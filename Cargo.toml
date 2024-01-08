@@ -6,13 +6,13 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-reqwest = {version = "0.11.10", features = ["cookies", "json"]}
+reqwest = {version = "0", features = ["cookies", "json"]}
 tokio = {version = "1", features = ["full"]}
-serde = {version = "^1.0.130", features = ["derive"]}
-json = "^0.12.4"
-faer = "0.16.0"
+serde = {version = "1", features = ["derive"]}
+json = "0"
+faer = "0"
 
 [dev-dependencies]
-test-case = "1.2.0"
-ron = "0.7.0"
-quickcheck = "1.0.3"
+test-case = "3"
+ron = "0"
+quickcheck = "1"
