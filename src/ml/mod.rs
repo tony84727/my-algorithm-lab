@@ -1,48 +1,17 @@
+mod mat;
 use faer::Mat;
+
+use self::mat::MatExtension;
 
 pub struct LinearRegression {
     weights: Mat<f32>,
 }
 
-fn mat_power(mat: &mut Mat<f32>, power: f32) {
-    for row in 0..mat.nrows() {
-        for column in 0..mat.ncols() {
-            mat.write(row, column, mat.read(row, column).powf(power));
-        }
-    }
-}
-fn mat_sum(mat: &Mat<f32>) -> f32 {
-    let mut sum = 0_f32;
-    for row in 0..mat.nrows() {
-        for column in 0..mat.ncols() {
-            sum += mat.read(row, column);
-        }
-    }
-    sum
-}
-fn mat_scale(mat: &mut Mat<f32>, scale: f32) {
-    for row in 0..mat.nrows() {
-        for column in 0..mat.ncols() {
-            mat.write(row, column, mat.read(row, column) * scale);
-        }
-    }
-}
-
-fn mat_sum_rows(mat: Mat<f32>) -> Mat<f32> {
-    Mat::from_fn(mat.nrows(), 1, |row, _column| {
-        let mut sum = 0_f32;
-        for column in 0..mat.ncols() {
-            sum += mat.read(row, column);
-        }
-        sum
-    })
-}
-
 fn compute_gradient(x: &Mat<f32>, y: &Mat<f32>, weights: &Mat<f32>) -> Mat<f32> {
     let predict = x * weights;
-    let mut gradient = mat_sum_rows(x.transpose() * &(predict - y));
-    mat_scale(&mut gradient, 1.0_f32 / x.nrows() as f32);
-    gradient
+    return (x.transpose() * &(predict - y))
+        .sum_rows()
+        .scale(1.0 / x.rows() as f32);
 }
 
 impl LinearRegression {
@@ -65,18 +34,12 @@ impl LinearRegression {
         input * &self.weights
     }
     pub fn mse_cost(&self, x: &Mat<f32>, y: &Mat<f32>) -> f32 {
-        let mut error = self.predict(x) - y;
-        mat_power(&mut error, 2.0);
-        mat_sum(&error)
+        (self.predict(x) - y).power(2.0).sum()
     }
     pub fn fit(&mut self, x: &Mat<f32>, y: &Mat<f32>, learning_rate: f32, epochs: usize) {
         for _ in 0..epochs {
             let weights = self.get_weights();
-            let update = {
-                let mut to_scale = compute_gradient(x, y, weights);
-                mat_scale(&mut to_scale, learning_rate);
-                to_scale
-            };
+            let update = compute_gradient(x, y, weights).scale(learning_rate);
             self.set_weights(weights - update);
         }
     }
