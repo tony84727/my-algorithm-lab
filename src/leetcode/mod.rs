@@ -126,7 +126,7 @@ pub mod algorithm_98;
 pub mod algorithm_986;
 pub mod algorithm_989;
 pub mod bitwise_and_of_numbers_range_201;
-mod common;
+pub mod common;
 pub mod construct_binary_search_tree_from_preorder_traversal_1008;
 pub mod container_with_most_water_11;
 pub mod find_all_duplicates_in_an_array_442;
