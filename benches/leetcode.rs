@@ -45,14 +45,14 @@ pub fn leetcode_49(c: &mut Criterion) {
     algorithm.bench_function("sort", |b| {
         b.iter_batched(
             || input.clone(),
-            |input| algorithm_49::sort::Solution::group_anagrams(input),
+            algorithm_49::sort::Solution::group_anagrams,
             BatchSize::SmallInput,
         )
     });
     algorithm.bench_function("hash_btree", |b| {
         b.iter_batched(
             || input.clone(),
-            |input| algorithm_49::hash_btree::Solution::group_anagrams(input),
+            algorithm_49::hash_btree::Solution::group_anagrams,
             BatchSize::SmallInput,
         )
     });
@@ -73,14 +73,14 @@ pub fn leetcode_56(c: &mut Criterion) {
     algorithm.bench_function("normal", |b| {
         b.iter_batched(
             load_input,
-            |input| algorithm_56::normal::Solution::merge(input),
+            algorithm_56::normal::Solution::merge,
             BatchSize::SmallInput,
         );
     });
     algorithm.bench_function("convergence", |b| {
         b.iter_batched(
             load_input,
-            |input| algorithm_56::convergence::Solution::merge(input),
+            algorithm_56::convergence::Solution::merge,
             BatchSize::SmallInput,
         );
     });
