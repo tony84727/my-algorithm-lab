@@ -16,3 +16,7 @@ missing
 *.o
 *.a
 ar-lib
+*_test
+*.log
+*.trs
+test-driver

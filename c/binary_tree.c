@@ -2,15 +2,28 @@
 #include <stdlib.h>
 
 void tree_add(struct Tree** root, int item) {
-	struct Tree** current = root;
-	while (*current) {
-		if (item > (*current)->value)
+	while (*root) {
+		if (item > (*root)->value)
 		{
-			current = &(*current)->right;
+			root = &(*root)->right;
 			continue;
 		}
-		current = &(*current)->left;
+		root = &(*root)->left;
 	}
-	*current = calloc(1, sizeof(struct Tree));
-	(*current)->value = item;
+	*root = calloc(1, sizeof(struct Tree));
+	(*root)->value = item;
+}
+
+int tree_search(struct Tree* root, int neddle) {
+	while (root) {
+		if (root->value == neddle) {
+			return 1;
+		}
+		if (root->value > neddle) {
+			root = root->left;
+			continue;
+		}
+		root = root->right;
+	}
+	return 0;
 }
