@@ -8,7 +8,6 @@ int main(int argc, char** argv) {
 	{
 		tree_add(&root, items[i]);
 	}
-	char* error_message;
 	test_assert(tree_search(root, 1), "tree should have 1");
 	test_assert(tree_search(root,56), "tree should have 56");
 	test_assert(!tree_search(root, 100), "tree shouldn't have 100");
