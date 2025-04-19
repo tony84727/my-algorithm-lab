@@ -1,0 +1,22 @@
+name: C
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: c
+    steps:
+      - uses: actions/checkout@v3
+      - name: Init Project
+        run: autoreconf -i
+      - name: Configure
+        run: ./configure
+      - name: Run tests
+        run: make check
