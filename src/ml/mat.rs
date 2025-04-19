@@ -10,7 +10,7 @@ pub trait MatExtension {
 impl MatExtension for faer::Mat<f32> {
     fn scale(&self, scalar: f32) -> Self {
         Self::from_fn(self.nrows(), self.ncols(), |row, column| {
-            self.read(row, column) * scalar
+            self.get(row, column) * scalar
         })
     }
 
@@ -24,7 +24,7 @@ impl MatExtension for faer::Mat<f32> {
         let mut sum = 0_f32;
         for row in 0..self.nrows() {
             for column in 0..self.ncols() {
-                sum += self.read(row, column);
+                sum += self.get(row, column);
             }
         }
         sum
@@ -33,14 +33,14 @@ impl MatExtension for faer::Mat<f32> {
         Self::from_fn(self.nrows(), 1, |row, _column| {
             let mut sum = 0_f32;
             for column in 0..self.ncols() {
-                sum += self.read(row, column);
+                sum += self.get(row, column);
             }
             sum
         })
     }
     fn power(&self, exp: f32) -> Self {
         Self::from_fn(self.nrows(), self.ncols(), |row, column| {
-            self.read(row, column).powf(exp)
+            self.get(row, column).powf(exp)
         })
     }
 }
