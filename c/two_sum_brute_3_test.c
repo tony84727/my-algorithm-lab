@@ -3,12 +3,12 @@
 #include <string.h>
 
 int main(int argc, char** argv) {
-	int nums[] = {3,3};
-	int target = 6;
+	int nums[] = {-1,-2,-3,-4,-5};
+	int target = -8;
 	int return_size = 0;
 	int* matched = two_sum(nums, sizeof(nums)/sizeof(int), target, &return_size);
 	test_assert(return_size == 2, "return size should be 2");
-	int expected[] = {0,1};
+	int expected[] = {2,4};
 	sort_ints(matched, return_size);
-	test_assert(memcmp(expected, matched, 2) == 0, "answer should be [0,1]");
+	test_assert(memcmp(expected, matched, 2) == 0, "answer should be [2,4]");
 }
