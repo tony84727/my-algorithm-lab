@@ -9,9 +9,9 @@ pub struct LinearRegression {
 
 fn compute_gradient(x: &Mat<f32>, y: &Mat<f32>, weights: &Mat<f32>) -> Mat<f32> {
     let predict = x * weights;
-    return (x.transpose() * &(predict - y))
+    (x.transpose() * &(predict - y))
         .sum_rows()
-        .scale(1.0 / x.rows() as f32);
+        .scale(1.0 / x.rows() as f32)
 }
 
 impl LinearRegression {
