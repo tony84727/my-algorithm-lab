@@ -25,7 +25,7 @@ static void hashmap_add(struct Map* map, int key, void* item) {
 		map->slots[hash_value] = calloc(2, sizeof(struct Entry**));
 	}
 	struct Entry* entry = malloc(sizeof(struct Entry));
-	entry->key = hash_value;
+	entry->key = key;
 	entry->value = item;
 	map->slots[hash_value][map->slot_lengths[hash_value]] = entry;
 	map->slot_lengths[hash_value] += 1;
@@ -51,7 +51,7 @@ static void* hashmap_get(struct Map* map, int needle) {
 static const int SLOT_SIZE = 1024 * 1024;
 
 static int mod(int i) {
-	return (i % SLOT_SIZE + SLOT_SIZE) % SLOT_SIZE;
+	return ((i % SLOT_SIZE) + SLOT_SIZE) % SLOT_SIZE;
 }
 
 int* two_sum(int* nums, int num_size, int target, int* return_size) {
@@ -63,9 +63,6 @@ int* two_sum(int* nums, int num_size, int target, int* return_size) {
 	}
 	for (int i = 0; i < num_size; i+=1) {
 		int remaining = target - nums[i];
-		if (remaining < 0) {
-			continue;
-		}
 		int* index = hashmap_get(m, remaining);
 		if (index == NULL || *index == i) {
 			continue;
