@@ -5,5 +5,8 @@ AC_PROG_RANLIB
 AM_PROG_AR
 AC_CONFIG_FILES([
     Makefile
+    leetcode/Makefile
+    binary_tree/Makefile
+    test_helper/Makefile
 ])
 AC_OUTPUT()
