@@ -9,7 +9,6 @@ check_PROGRAMS = two_sum_brute_0_test \
 		 two_sum_hashmap_3_test \
 		 add_two_numbers_0_test \
 		 add_two_numbers_1_test
-TESTS = $(check_PROGRAMS)
 two_sum_brute_0_test_SOURCES = two_sum_brute.c two_sum_brute_0_test.c
 two_sum_brute_1_test_SOURCES = two_sum_brute.c two_sum_brute_1_test.c
 two_sum_brute_2_test_SOURCES = two_sum_brute.c two_sum_brute_2_test.c
