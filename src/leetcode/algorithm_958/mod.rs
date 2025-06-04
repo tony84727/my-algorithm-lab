@@ -32,3 +32,17 @@ impl Solution {
         true
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::leetcode::common::TreeNode;
+    use test_case::test_case;
+
+    #[test_case(vec!["1", "2", "3", "4", "5", "6"] => true; "example 1")]
+    #[test_case(vec!["1", "2", "3", "4", "5", "null", "7"] => false; "example 2")]
+    fn test_solution(preorder: Vec<&str>) -> bool {
+        let root = TreeNode::from_preorder_str(preorder);
+        Solution::is_complete_tree(root)
+    }
+}
