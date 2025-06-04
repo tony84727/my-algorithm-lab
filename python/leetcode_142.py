@@ -4,6 +4,9 @@
 #         self.val = x
 #         self.next = None
 
+from typing import Optional
+
+
 class Solution:
     def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
         slow = head
@@ -17,4 +20,4 @@ class Solution:
                     fast = fast.next
                     slow = slow.next
                 return slow
-        return Non
+        return None
