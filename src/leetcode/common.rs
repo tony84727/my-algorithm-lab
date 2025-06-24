@@ -116,4 +116,25 @@ impl TreeNode {
     pub fn from_preorder_str(elements: Vec<&str>) -> Option<Rc<RefCell<TreeNode>>> {
         Self::from_preorder(parse_input(elements))
     }
+
+    pub fn serialize(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
+        let mut values = Vec::new();
+        let mut queue = VecDeque::new();
+        if let Some(node) = root {
+            queue.push_back(node);
+        } else {
+            return values;
+        }
+        while let Some(node) = queue.pop_front() {
+            let node_ref = node.borrow();
+            values.push(node_ref.val);
+            if let Some(left) = node_ref.left.clone() {
+                queue.push_back(left);
+            }
+            if let Some(right) = node_ref.right.clone() {
+                queue.push_back(right);
+            }
+        }
+        values
+    }
 }

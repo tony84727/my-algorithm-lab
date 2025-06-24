@@ -43,3 +43,23 @@ impl Solution {
         duplicated
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::leetcode::common::TreeNode;
+    use test_case::test_case;
+
+    #[test_case(vec!["1", "2", "3", "4", "null", "2", "4", "null", "null", "4"] => vec![vec![2, 4], vec![4]]; "example 1")]
+    #[test_case(vec!["2", "1", "1"] => vec![vec![1]]; "example 2")]
+    #[test_case(vec!["2", "2", "2", "3", "null", "3", "null"] => vec![vec![2, 3], vec![3]]; "example 3")]
+    fn test_solution(preorder: Vec<&str>) -> Vec<Vec<i32>> {
+        let root = TreeNode::from_preorder_str(preorder);
+        let mut values = Solution::find_duplicate_subtrees(root)
+            .into_iter()
+            .map(TreeNode::serialize)
+            .collect::<Vec<_>>();
+        values.sort();
+        values
+    }
+}
