@@ -36,6 +36,7 @@ mod tests {
     #[test_case("1001010", 5 => 5; "example 1")]
     #[test_case("00101001", 1 => 6; "example 2")]
     #[test_case("0", 583196182 => 1; "example 3")]
+    #[test_case("00101100", 8 => 6; "case 1")]
     fn test_solution(s: &str, k: i32) -> i32 {
         Solution::longest_subsequence(String::from(s), k)
     }
