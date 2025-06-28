@@ -14,9 +14,9 @@ mod tests {
         let answer = back_trace::Solution::permute(nums);
         let actual_length = answer.len();
         assert_eq!(
-            right_length, actual_length,
-            "expected length to be {}, got {}, elements are: {:?}",
-            right_length, actual_length, answer
+            right_length,
+            actual_length,
+            "expected length to be {right_length}, got {actual_length}, elements are: {answer:?}"
         );
         let right_answer: HashSet<Vec<i32>> = HashSet::from_iter(right_answer);
         assert_eq!(right_answer, HashSet::from_iter(answer.into_iter()));
