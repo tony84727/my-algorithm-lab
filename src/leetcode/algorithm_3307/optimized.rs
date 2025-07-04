@@ -4,10 +4,7 @@ impl Solution {
     pub fn kth_character(k: i64, operations: Vec<i32>) -> char {
         let mut current = k as usize - 1;
         let mut shift = 0;
-        loop {
-            if current == 0 {
-                break;
-            }
+        while current != 0 {
             let batch = (current as f32).log2().floor() as u32;
             let jump = 2_usize.pow(batch);
             if operations[batch as usize] == 1 && current >= 2_usize.pow(batch) {
