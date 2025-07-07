@@ -1,4 +1,4 @@
-use std::{cmp::Ordering, collections::HashMap, rc::Rc};
+use std::{collections::HashMap, rc::Rc};
 
 pub struct Solution;
 
@@ -14,24 +14,15 @@ impl Event {
     }
 }
 
-impl PartialOrd for Event {
-    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
-        Some(self.cmp(other))
-    }
-}
-
-impl Ord for Event {
-    fn cmp(&self, other: &Self) -> std::cmp::Ordering {
-        match self.start.cmp(&other.start) {
-            Ordering::Equal => self.end.cmp(&other.end),
-            ord => ord,
-        }
-    }
-}
-
 impl Solution {
     pub fn max_events(events: Vec<Vec<i32>>) -> i32 {
-        let events = Solution::sort_events(events);
+        let events: Vec<Event> = events
+            .into_iter()
+            .map(|e| Event {
+                start: e[0],
+                end: e[1],
+            })
+            .collect();
         let mut memoized: HashMap<(Rc<Vec<Event>>, i32), i32> = HashMap::new();
         Self::attended_after_day(&mut memoized, Rc::new(events), 1)
     }
@@ -75,18 +66,6 @@ impl Solution {
         }
         memoized.insert((events, day), optimal);
         optimal
-    }
-
-    fn sort_events(events: Vec<Vec<i32>>) -> Vec<Event> {
-        let mut events: Vec<Event> = events
-            .into_iter()
-            .map(|x| Event {
-                start: x[0],
-                end: x[1],
-            })
-            .collect();
-        events.sort();
-        events
     }
 }
 
