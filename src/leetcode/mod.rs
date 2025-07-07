@@ -123,6 +123,7 @@ pub mod algorithm_953;
 pub mod algorithm_958;
 pub mod algorithm_977;
 pub mod algorithm_98;
+pub mod algorithm_983;
 pub mod algorithm_986;
 pub mod algorithm_989;
 pub mod bitwise_and_of_numbers_range_201;
