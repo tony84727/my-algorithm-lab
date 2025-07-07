@@ -154,3 +154,4 @@ pub mod algorithm_3304;
 pub mod algorithm_3307;
 pub mod algorithm_1394;
 pub mod algorithm_1865;
+pub mod algorithm_1353;
