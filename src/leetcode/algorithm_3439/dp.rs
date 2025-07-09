@@ -3,21 +3,23 @@ pub struct Solution;
 impl Solution {
     pub fn max_free_time(event_time: i32, k: i32, start_time: Vec<i32>, end_time: Vec<i32>) -> i32 {
         let k = k as usize;
-        let mut dp = vec![vec![0; k + 1]; start_time.len() + 1];
+        let mut dp = vec![0; k + 1];
         let mut max_gap = 0;
         for (i, (start, end)) in start_time.iter().zip(end_time.iter()).enumerate() {
-            dp[i + 1][0] = *end;
+            let mut updated = vec![0; k + 1];
+            updated[0] = *end;
             for j in 1..=k {
-                let shift_left = (start - dp[i][j - 1]).max(0);
-                dp[i + 1][j] = end - shift_left;
+                let shift_left = (start - dp[j - 1]).max(0);
+                updated[j] = end - shift_left;
                 let next_start = if i + 1 >= start_time.len() {
                     event_time
                 } else {
                     start_time[i + 1]
                 };
-                let gap = next_start - dp[i + 1][j];
+                let gap = next_start - updated[j];
                 max_gap = max_gap.max(gap);
             }
+            dp = updated;
         }
         max_gap
     }
