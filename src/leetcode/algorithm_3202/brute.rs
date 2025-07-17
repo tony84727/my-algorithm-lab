@@ -22,9 +22,9 @@ impl Solution {
                 if (last + nums[0]) % k != m {
                     return Self::solve(&nums[1..], k, m, Some(last));
                 }
-                1 + Self::solve(&nums[1..], k, m, Some(nums[0]))
+                1 + Self::solve(&nums[1..], k, m, Some(nums[0] % k))
             }
-            None => (1 + Self::solve(&nums[1..], k, m, Some(nums[0]))).max(Self::solve(
+            None => (1 + Self::solve(&nums[1..], k, m, Some(nums[0] % k))).max(Self::solve(
                 &nums[1..],
                 k,
                 m,
