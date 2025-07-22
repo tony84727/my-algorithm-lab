@@ -168,3 +168,4 @@ pub mod valid_parentheses_20;
 pub mod wiggle_subsequence_376;
 pub mod algorithm_1948;
 pub mod algorithm_1957;
+pub mod algorithm_1695;
