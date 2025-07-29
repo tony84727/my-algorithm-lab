@@ -175,3 +175,4 @@ pub mod algorithm_3487;
 pub mod algorithm_3480;
 pub mod algorithm_2210;
 pub mod algorithm_2044;
+pub mod algorithm_2411;
