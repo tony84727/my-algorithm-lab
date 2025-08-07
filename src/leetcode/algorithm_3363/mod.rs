@@ -64,8 +64,12 @@ impl Solution {
                 let previous_row_low = (previous - 1).min(row.saturating_sub(1));
                 let previous_row_high = (previous - 1).min(row + 1);
                 let mut last_row_max = 0;
-                for last_row in previous_row_low..=previous_row_high {
-                    last_row_max = last_row_max.max(dp_2[last_row][move_right - 1]);
+                for last_row in dp_2
+                    .iter()
+                    .skip(previous_row_low)
+                    .take(previous_row_high - previous_row_low + 1)
+                {
+                    last_row_max = last_row_max.max(last_row[move_right - 1]);
                 }
                 dp_2[row][move_right] = last_row_max + fruits[n - 1 - row][move_right];
             }
