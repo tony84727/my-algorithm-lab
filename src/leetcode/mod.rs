@@ -190,3 +190,4 @@ pub mod algorithm_869;
 pub mod algorithm_2438;
 pub mod algorithm_2787;
 pub mod algorithm_326;
+pub mod algorithm_2264;
