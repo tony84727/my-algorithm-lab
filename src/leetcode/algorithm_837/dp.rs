@@ -11,15 +11,23 @@ impl Solution {
         }
         for vn in 1..=(n as usize) {
             for vk in 1..=(k as usize) {
-                for r in 1..=max_pts as usize {
-                    if vk <= r {
-                        dp[vn][vk] += if vn < r { 0.0 } else { 1.0 } / max_pts as f64;
-                        continue;
-                    }
-                    if vn <= r {
-                        continue;
-                    }
+                // Unoptimized version 1
+                // for r in 1..=max_pts as usize {
+                //     if vk <= r {
+                //         dp[vn][vk] += if vn < r { 0.0 } else { 1.0 } / max_pts as f64;
+                //         continue;
+                //     }
+                //     if vn <= r {
+                //         continue;
+                //     }
+                //     dp[vn][vk] += dp[vn - r][vk - r] / max_pts as f64;
+                // }
+                for r in 1..vk.min(vn).min(max_pts as usize + 1) {
                     dp[vn][vk] += dp[vn - r][vk - r] / max_pts as f64;
+                }
+                if vn.min(max_pts as usize) >= vk.max(1) {
+                    dp[vn][vk] +=
+                        (vn.min(max_pts as usize) + 1 - vk.max(1)) as f64 / max_pts as f64;
                 }
             }
         }
