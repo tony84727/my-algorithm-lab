@@ -2,10 +2,10 @@ pub struct Solution;
 
 impl Solution {
     pub fn count_squares(mut matrix: Vec<Vec<i32>>) -> i32 {
-        let max_row = matrix.len() - 1;
-        if max_row == 0 {
+        if matrix.is_empty() {
             return 0;
         }
+        let max_row = matrix.len() - 1;
         let max_column = matrix.first().unwrap().len() - 1;
         let mut todo: Vec<(usize, usize)> = vec![];
         for (r, row) in matrix.iter().enumerate() {
