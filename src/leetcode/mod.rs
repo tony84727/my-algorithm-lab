@@ -201,3 +201,4 @@ pub mod algorithm_3195;
 pub mod algorithm_3197;
 pub mod algorithm_1493;
 pub mod algorithm_498;
+pub mod algorithm_3000;
