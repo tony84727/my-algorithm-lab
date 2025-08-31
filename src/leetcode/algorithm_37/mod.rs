@@ -3,7 +3,7 @@ use std::collections::HashSet;
 pub struct Solution;
 
 impl Solution {
-    pub fn solve_sudoku(board: &mut Vec<Vec<char>>) {
+    pub fn solve_sudoku(board: &mut [Vec<char>]) {
         let all_possible = HashSet::from_iter(1..=9_i32);
         let mut options: Vec<Vec<HashSet<i32>>> = vec![vec![all_possible; 9]; 9];
         let mut empty = 0;
