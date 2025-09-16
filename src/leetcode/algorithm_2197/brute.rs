@@ -40,7 +40,7 @@ impl Solution {
     fn gcd(mut a: i32, mut b: i32) -> i32 {
         while a != 0 && b != 0 {
             (a, b) = (a.max(b), a.min(b));
-            a -= b;
+            a %= b;
         }
         a + b
     }
