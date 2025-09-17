@@ -222,3 +222,4 @@ pub mod algorithm_3541;
 pub mod algorithm_966;
 pub mod algorithm_1935;
 pub mod algorithm_2197;
+pub mod algorithm_2353;
