@@ -62,7 +62,7 @@ impl Solution {
         for i in 0..k {
             let mut p = Self::premutation(k - 1, elements);
             premutations.append(&mut p);
-            if k % 2 == 0 {
+            if k.is_multiple_of(2) {
                 elements.swap(i, k - 1);
             } else {
                 elements.swap(0, k - 1);
