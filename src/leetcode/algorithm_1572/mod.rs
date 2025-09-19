@@ -10,7 +10,7 @@ impl Solution {
             sum += mat[length - n - 1][n];
             sum += mat[length - n - 1][length - n - 1];
         }
-        if length % 2 != 0 {
+        if !length.is_multiple_of(2) {
             let i = length / 2;
             sum += mat[i][i];
         }

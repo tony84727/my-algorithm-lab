@@ -12,6 +12,7 @@ serde = {version = "1", features = ["derive"]}
 json = "0"
 faer = "0"
 ron = "0"
+regex = "1.11.2"
 
 [dev-dependencies]
 test-case = "3"
