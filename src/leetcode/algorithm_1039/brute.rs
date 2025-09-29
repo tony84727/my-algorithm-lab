@@ -5,11 +5,11 @@ impl Solution {
         Self::min_weight_of_triangles(&values)
     }
 
-    fn split_vertex(vertexs: &[i32], a: usize, b: usize) -> (Vec<i32>, Vec<i32>) {
+    fn split_vertex(vertex: &[i32], a: usize, b: usize) -> (Vec<i32>, Vec<i32>) {
         let (a, b) = (a.min(b), a.max(b));
         let mut a_vertex = Vec::new();
         let mut b_vertex = Vec::new();
-        for (i, v) in vertexs.iter().enumerate() {
+        for (i, v) in vertex.iter().enumerate() {
             if i == a || i == b {
                 a_vertex.push(*v);
                 b_vertex.push(*v);
@@ -24,11 +24,11 @@ impl Solution {
         (a_vertex, b_vertex)
     }
 
-    fn min_weight_of_triangles(vertexs: &[i32]) -> i32 {
-        if vertexs.len() == 3 {
-            return vertexs.iter().product();
+    fn min_weight_of_triangles(vertex: &[i32]) -> i32 {
+        if vertex.len() == 3 {
+            return vertex.iter().product();
         }
-        let n = vertexs.len();
+        let n = vertex.len();
         let k = n.div_ceil(2);
         let mut min = i32::MAX;
         for a in 0..k {
@@ -36,7 +36,7 @@ impl Solution {
                 if b == a || b == (a + 1) % n || b == (a + n - 1) % n {
                     continue;
                 }
-                let (a_vertex, b_vertex) = Self::split_vertex(vertexs, a, b);
+                let (a_vertex, b_vertex) = Self::split_vertex(vertex, a, b);
                 min = min.min(
                     Self::min_weight_of_triangles(&a_vertex)
                         + Self::min_weight_of_triangles(&b_vertex),
