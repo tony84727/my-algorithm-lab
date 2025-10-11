@@ -22,12 +22,13 @@ impl Solution {
                 _ => None,
             };
             let current = current_power as i64 * *frequency.get(&current_power).unwrap() as i64;
-            dp[i] = current
+            dp[i] = (current
                 + if let Some(last_index) = last_index {
                     dp[last_index]
                 } else {
                     0
-                };
+                })
+            .max(if i > 0 { dp[i - 1] } else { 0 });
         }
         dp.into_iter().max().unwrap_or_default()
     }
