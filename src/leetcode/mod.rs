@@ -255,3 +255,4 @@ pub mod algorithm_1625;
 pub mod algorithm_2011;
 pub mod algorithm_26;
 pub mod algorithm_27;
+pub mod algorithm_3461;
