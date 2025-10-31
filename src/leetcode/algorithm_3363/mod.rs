@@ -32,8 +32,12 @@ impl Solution {
                 let previous_row_low = (previous - 1).min(column.saturating_sub(1));
                 let previous_row_high = (previous - 1).min(column + 1);
                 let mut last_row_max = 0;
-                for last_row in previous_row_low..=previous_row_high {
-                    last_row_max = last_row_max.max(dp_1[move_down - 1][last_row]);
+                for &value in dp_1[move_down - 1]
+                    .iter()
+                    .skip(previous_row_low)
+                    .take(previous_row_high - previous_row_low + 1)
+                {
+                    last_row_max = last_row_max.max(value);
                 }
                 dp_1[move_down][column] = last_row_max + fruits[move_down][n - 1 - column];
             }

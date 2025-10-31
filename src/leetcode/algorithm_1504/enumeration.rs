@@ -21,8 +21,8 @@ impl Solution {
             }
         }
         let mut count = 0;
-        for r in 0..row {
-            for c in 0..column {
+        for (r, row_widths) in widths.iter().enumerate() {
+            for (c, _) in row_widths.iter().enumerate() {
                 let mut max_height = 0;
                 let mut min_width = usize::MAX;
                 while r + max_height < row && widths[r + max_height][c] != 0 {
