@@ -4,9 +4,9 @@ use my_algorithm_lab::leetcode::{algorithm_48, algorithm_49, algorithm_56, algor
 pub fn leetcode_48(c: &mut Criterion) {
     fn create_matrix(size: usize) -> Vec<Vec<i32>> {
         let mut matrix = vec![vec![0; size]; size];
-        for row in 0..matrix.len() {
-            for column in 0..matrix.len() {
-                matrix[row][column] = (column % 2) as i32;
+        for row in matrix.iter_mut() {
+            for (column, value) in row.iter_mut().enumerate() {
+                *value = (column % 2) as i32;
             }
         }
         matrix
