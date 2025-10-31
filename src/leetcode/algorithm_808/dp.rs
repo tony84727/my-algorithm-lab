@@ -8,8 +8,8 @@ impl Solution {
         for a in dp.iter_mut().skip(1) {
             a[0] = 0.0;
         }
-        for b in 1..=m {
-            dp[0][b] = 1.0;
+        for value in dp[0].iter_mut().skip(1) {
+            *value = 1.0;
         }
         for i in 1..=m {
             for j in 1..=m {

@@ -10,9 +10,12 @@ impl Solution {
         let mut max = 0;
         for n in nums.into_iter() {
             let r = (n as usize) % k;
-            for j in 0..k {
-                dp[r][j] = dp[j][r] + 1;
-                max = max.max(dp[r][j]);
+            let updates: Vec<i32> = dp.iter().map(|row| row[r] + 1).collect();
+            if let Some(dp_row) = dp.get_mut(r) {
+                for (value, cell) in updates.into_iter().zip(dp_row.iter_mut()) {
+                    *cell = value;
+                    max = max.max(value);
+                }
             }
         }
         max

@@ -5,13 +5,13 @@ impl Solution {
         let find_largest_rectangle = |row: usize, column: usize| -> i32 {
             let mut max_area = 1;
             let mut max_width = matrix[0].len();
-            for r in row..matrix.len() {
+            for (r, current_row) in matrix.iter().enumerate().skip(row) {
                 let height = r - row + 1;
-                for c in column..matrix[0].len() {
+                for (c, &cell) in current_row.iter().enumerate().skip(column) {
                     if c >= max_width {
                         break;
                     }
-                    if matrix[r][c] != '1' {
+                    if cell != '1' {
                         max_width = c;
                         break;
                     }

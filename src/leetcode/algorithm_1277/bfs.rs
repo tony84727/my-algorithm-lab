@@ -32,10 +32,13 @@ impl Solution {
                         continue 'processing;
                     }
                 }
-                for column in c..c + extension {
-                    if matrix[last_row][column] == 0 {
-                        continue 'processing;
-                    }
+                if matrix[last_row]
+                    .iter()
+                    .skip(c)
+                    .take(extension)
+                    .any(|&value| value == 0)
+                {
+                    continue 'processing;
                 }
                 matrix[r][c] += 1;
                 todo.push((r, c));
