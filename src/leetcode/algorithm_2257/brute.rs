@@ -22,8 +22,8 @@ impl Solution {
             let c = g[1] as usize;
             grid[r][c] = State::Guard;
 
-            for dr in r + 1..m {
-                match &mut grid[dr][c] {
+            for dr in grid.iter_mut().take(m).skip(r + 1) {
+                match &mut dr[c] {
                     State::Guard => {
                         continue;
                     }
@@ -48,8 +48,8 @@ impl Solution {
                     }
                 }
             }
-            for dc in c + 1..n {
-                match &mut grid[r][dc] {
+            for cell in grid[r].iter_mut().take(n).skip(c + 1) {
+                match cell {
                     State::Guard => {
                         continue;
                     }

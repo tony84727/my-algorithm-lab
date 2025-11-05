@@ -56,8 +56,8 @@ impl Solution {
         }
         for column in 0..n {
             let mut visible = false;
-            for row in 0..m {
-                match &mut grid[row][column] {
+            for row in grid.iter_mut() {
+                match &mut row[column] {
                     State::Guard => {
                         visible = true;
                     }
