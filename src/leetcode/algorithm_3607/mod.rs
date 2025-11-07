@@ -59,7 +59,7 @@ impl Solution {
                     let mut report: i32 = -1;
                     let nodes = nodes.get_mut(&parent).unwrap();
                     while let Some(Reverse(x)) = nodes.pop() {
-                        if !offline[x as usize] {
+                        if !offline[x] {
                             report = x as i32;
                             break;
                         }
