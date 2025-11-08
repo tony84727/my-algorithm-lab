@@ -6,10 +6,10 @@ impl Solution {
             return 0;
         }
         let mut power = 0;
-        while (1 << power + 1) <= n {
+        while 1 << (power + 1) <= n {
             power += 1;
         }
-        (1 << power + 1) - 1 - Self::minimum_one_bit_operations((1 << power) ^ n)
+        (1 << (power + 1)) - 1 - Self::minimum_one_bit_operations((1 << power) ^ n)
     }
 }
 
