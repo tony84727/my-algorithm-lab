@@ -15,8 +15,8 @@ impl Solution {
         let mut best = i32::MAX;
         for i in 0..n {
             let mut g = nums[i];
-            for j in i..n {
-                g = Self::gcd(g, nums[j]);
+            for (j, &num) in nums.iter().enumerate().skip(i) {
+                g = Self::gcd(g, num);
                 if g == 1 {
                     best = best.min((j - i + 1) as i32);
                     break;
