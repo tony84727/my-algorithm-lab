@@ -2,30 +2,24 @@ pub struct Solution;
 
 impl Solution {
     pub fn intersection_size_two(mut intervals: Vec<Vec<i32>>) -> i32 {
-        intervals.sort_unstable_by(|a, b| {
-            if a[1] != b[1] {
-                a[1].cmp(&b[1])
-            } else {
-                b[0].cmp(&a[0])
-            }
-        });
+        intervals.sort_unstable_by(|a, b| a[1].cmp(&b[1]).then_with(|| b[0].cmp(&a[0])));
 
         let mut res = 0;
-        let mut p1 = -1;
-        let mut p2 = -1;
+        let mut second_largest = -1;
+        let mut largest = -1;
 
         for interval in intervals {
             let start = interval[0];
             let end = interval[1];
 
-            if start > p2 {
+            if start > largest {
                 res += 2;
-                p1 = end - 1;
-                p2 = end;
-            } else if start > p1 {
+                second_largest = end - 1;
+                largest = end;
+            } else if start > second_largest {
                 res += 1;
-                p1 = p2;
-                p2 = end;
+                second_largest = largest;
+                largest = end;
             }
         }
         res
