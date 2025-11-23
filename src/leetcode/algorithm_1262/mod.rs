@@ -4,7 +4,7 @@ impl Solution {
     pub fn max_sum_div_three(nums: Vec<i32>) -> i32 {
         let mut mods = [0, 0, 0];
         for n in nums.into_iter() {
-            let mut next = mods.clone();
+            let mut next = mods;
             for &sum in mods.iter() {
                 let m = ((sum + n) % 3) as usize;
                 next[m] = next[m].max(sum + n);
