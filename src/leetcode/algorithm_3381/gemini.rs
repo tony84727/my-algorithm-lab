@@ -15,9 +15,7 @@ impl Solution {
             prefix_sums[i + 1] = prefix_sums[i] + nums[i] as i64;
         }
 
-        let get_chunk_sum = |i: usize| -> i64 {
-            prefix_sums[i + k] - prefix_sums[i]
-        };
+        let get_chunk_sum = |i: usize| -> i64 { prefix_sums[i + k] - prefix_sums[i] };
 
         for j in 0..k {
             let mut sub_sums = vec![];
@@ -30,16 +28,15 @@ impl Solution {
             if sub_sums.is_empty() {
                 continue;
             }
-            
+
             // Kadane's algorithm
             let mut max_ending_here = sub_sums[0];
             let mut global_max_for_j = sub_sums[0];
-            for i in 1..sub_sums.len() {
-                let current_sum = sub_sums[i];
+            for &current_sum in sub_sums.iter().skip(1) {
                 max_ending_here = current_sum.max(current_sum + max_ending_here);
                 global_max_for_j = global_max_for_j.max(max_ending_here);
             }
-            
+
             if max_so_far == i64::MIN {
                 max_so_far = global_max_for_j;
             } else {
