@@ -83,6 +83,7 @@ pub mod algorithm_19;
 pub mod algorithm_190;
 pub mod algorithm_1912;
 pub mod algorithm_1920;
+pub mod algorithm_1925;
 pub mod algorithm_1930;
 pub mod algorithm_1935;
 pub mod algorithm_1948;
