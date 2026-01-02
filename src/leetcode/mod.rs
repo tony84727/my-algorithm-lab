@@ -276,6 +276,7 @@ pub mod algorithm_912;
 pub mod algorithm_934;
 pub mod algorithm_953;
 pub mod algorithm_958;
+pub mod algorithm_961;
 pub mod algorithm_966;
 pub mod algorithm_97;
 pub mod algorithm_976;
