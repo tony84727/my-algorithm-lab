@@ -35,6 +35,7 @@ pub mod algorithm_1351;
 pub mod algorithm_1353;
 pub mod algorithm_1372;
 pub mod algorithm_1376;
+pub mod algorithm_1390;
 pub mod algorithm_1394;
 pub mod algorithm_1402;
 pub mod algorithm_1413;
