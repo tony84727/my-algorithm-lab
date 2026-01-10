@@ -5,7 +5,6 @@ impl Solution {
         let s1: Vec<i32> = s1.as_bytes().iter().map(|&x| x as i32).collect();
         let s2: Vec<i32> = s2.as_bytes().iter().map(|&x| x as i32).collect();
         let mut dp = vec![vec![0; s2.len() + 1]; s1.len() + 1];
-        dp[0][0] = 0;
         let sum: i32 = s1.iter().sum::<i32>() + s2.iter().sum::<i32>();
         for (i, a) in s1.iter().enumerate() {
             for (j, b) in s2.iter().enumerate() {
