@@ -2,8 +2,8 @@ pub struct Solution;
 
 impl Solution {
     pub fn minimum_delete_sum(s1: String, s2: String) -> i32 {
-        let s1: Vec<i32> = s1.as_bytes().into_iter().map(|&x| x as i32).collect();
-        let s2: Vec<i32> = s2.as_bytes().into_iter().map(|&x| x as i32).collect();
+        let s1: Vec<i32> = s1.as_bytes().iter().map(|&x| x as i32).collect();
+        let s2: Vec<i32> = s2.as_bytes().iter().map(|&x| x as i32).collect();
         let mut dp = vec![vec![0; s2.len() + 1]; s1.len() + 1];
         dp[0][0] = 0;
         let sum: i32 = s1.iter().sum::<i32>() + s2.iter().sum::<i32>();
