@@ -16,5 +16,8 @@ TESTS = \
     leetcode/leetcode_2962_0_test \
     leetcode/leetcode_2962_1_test \
     leetcode/leetcode_2962_2_test \
+    leetcode/leetcode_2943_0_test \
+    leetcode/leetcode_2943_1_test \
+    leetcode/leetcode_2943_2_test \
     binary_tree/binary_tree_test \
     binary_tree/binary_tree_remove_test

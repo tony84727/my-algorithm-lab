@@ -1,8 +1,9 @@
 #include "binary_tree.h"
 #include "test_helper.h"
+#include <stdlib.h>
 
 int main(int argc, char** argv) {
-	struct Tree* root;
+	struct Tree* root = NULL;
 	int items[7] = {1,2,3,4,9,56,1};
 	for(int i = 0; i < sizeof(items)/sizeof(int); i++)
 	{
