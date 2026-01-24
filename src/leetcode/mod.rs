@@ -80,6 +80,7 @@ pub mod algorithm_1768;
 pub mod algorithm_1799;
 pub mod algorithm_1822;
 pub mod algorithm_1865;
+pub mod algorithm_1877;
 pub mod algorithm_189;
 pub mod algorithm_19;
 pub mod algorithm_190;
