@@ -93,6 +93,7 @@ pub mod algorithm_1948;
 pub mod algorithm_1957;
 pub mod algorithm_1964;
 pub mod algorithm_198;
+pub mod algorithm_1984;
 pub mod algorithm_200;
 pub mod algorithm_2011;
 pub mod algorithm_2043;
