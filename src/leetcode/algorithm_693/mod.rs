@@ -2,8 +2,8 @@ pub struct Solution;
 
 impl Solution {
     pub fn has_alternating_bits(n: i32) -> bool {
-        let mask = !(0x7FFFFFFF << if n > 1 { (n - 1).ilog2() + 1 } else { 1 });
-        ((n >> 1) ^ !n) & mask == 0
+        let x = n ^ (n >> 1);
+        (x & x.wrapping_add(1)) == 0
     }
 }
 
