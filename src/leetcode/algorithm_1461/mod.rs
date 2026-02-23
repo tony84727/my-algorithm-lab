@@ -6,7 +6,7 @@ impl Solution {
     pub fn has_all_codes(s: String, k: i32) -> bool {
         let k = k as usize;
         let goal = 1 << k;
-        if s.len() - k + 1 < goal {
+        if k > s.len() || s.len() - k + 1 < goal {
             return false;
         }
         let mut codes = HashSet::with_capacity(goal);
