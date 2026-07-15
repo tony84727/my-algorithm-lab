@@ -7,7 +7,7 @@ impl Solution {
             .copied()
             .zip(capital.iter().copied())
             .collect::<Vec<(i32, i32)>>();
-        projects.sort_unstable_by(|a, b| b.0.cmp(&a.0));
+        projects.sort_unstable_by_key(|project| std::cmp::Reverse(project.0));
         let mut total = w;
         let mut capital = w;
         for _ in 0..k {

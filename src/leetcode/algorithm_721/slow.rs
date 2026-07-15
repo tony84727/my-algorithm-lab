@@ -24,7 +24,7 @@ impl Solution {
                 }
                 emails.insert(email.clone(), id);
             }
-            for (_, v) in emails.iter_mut() {
+            for v in emails.values_mut() {
                 if to_modify.contains(v) {
                     *v = id;
                 }

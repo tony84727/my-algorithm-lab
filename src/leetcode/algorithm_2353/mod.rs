@@ -38,11 +38,7 @@ impl FoodRatings {
         let mut versions = HashMap::new();
         let mut food_cuisine = HashMap::new();
 
-        for ((f, c), r) in foods
-            .into_iter()
-            .zip(cuisines.into_iter())
-            .zip(ratings.into_iter())
-        {
+        for ((f, c), r) in foods.into_iter().zip(cuisines).zip(ratings) {
             versions.insert(f.clone(), 0);
             food_cuisine.insert(f.clone(), c.clone());
             cuisine_heaps

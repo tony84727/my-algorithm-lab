@@ -46,7 +46,7 @@ impl Solution {
                     }
                 }
                 let mut scores = vec![];
-                let roots: HashSet<usize> = HashSet::from_iter(connected.clone().into_iter());
+                let roots: HashSet<usize> = HashSet::from_iter(connected.clone());
                 for root in roots.into_iter() {
                     scores.push(parent_scores[root]);
                 }

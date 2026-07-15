@@ -16,7 +16,7 @@ impl Solution {
             edges.entry(b).or_default().push((distance, a));
         }
         for list in edges.values_mut() {
-            list.sort_unstable_by(|a, b| a.0.cmp(&b.0));
+            list.sort_unstable_by_key(|a| a.0);
         }
         queries
             .into_iter()
