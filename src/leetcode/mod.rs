@@ -320,3 +320,4 @@ pub mod valid_parentheses_20;
 pub mod wiggle_subsequence_376;
 pub mod algorithm_16;
 pub mod algorithm_3867;
+pub mod algorithm_1081;
