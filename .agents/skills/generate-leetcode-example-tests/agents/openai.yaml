@@ -1,0 +1,7 @@
+interface:
+  display_name: "Generate LeetCode Example Tests"
+  short_description: "Turn pasted examples into repo-style Rust tests"
+  default_prompt: "Use $generate-leetcode-example-tests to add tests for these LeetCode examples."
+
+policy:
+  allow_implicit_invocation: false
