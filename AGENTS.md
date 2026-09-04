@@ -23,9 +23,9 @@ tests beside their implementations, for example `python/leetcode_3459/`.
 - `cargo bench` runs the Criterion suites in `benches/`.
 - `cd c && autoreconf -i && ./configure && make check` configures, builds, and
   tests the C project.
-- `cd python && uv sync` creates the locked Python 3.13 environment. Run a
-  specific test with `uv run pytest leetcode_3459/test_brute.py` when pytest is
-  available in the development environment.
+- `cd python && uv sync` creates the locked Python 3.13 environment.
+- `cd python && uv run pytest` runs all Python tests. From `python/`, run a
+  specific test with `uv run pytest leetcode_3459/test_brute.py`.
 
 ## Coding Style & Naming Conventions
 
