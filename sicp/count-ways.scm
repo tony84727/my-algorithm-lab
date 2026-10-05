@@ -5,7 +5,9 @@
 
 (define (count-ways n)
   ;; TODO: Add base cases and combine the smaller problems.
-  'TODO)
+  (cond ((= n 0) 1)
+	((< n 0) 0)
+	(else (+ (count-ways (- n 1)) (count-ways (- n 2))))))
 
 (define (check-case n expected)
   (let ((actual (count-ways n)))
