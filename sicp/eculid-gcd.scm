@@ -12,9 +12,9 @@
   ;; TODO: Choose the next pair using Euclid's observation.
   ;; Keep the greatest common divisor unchanged at each step.
   ;; Make the recursive call the final operation in its branch.
-  (if (or (= a 0) (= b 0))
-      (+ a b)
-      (let ((a (max a b)) (b (min a b))) (euclid-gcd b (remainder a b)))))
+  (if (= b 0)
+      a
+      (euclid-gcd b (remainder a b))))
 
 (define (check-case label actual expected)
   (display label)
