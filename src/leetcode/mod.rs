@@ -328,3 +328,4 @@ pub mod wiggle_subsequence_376;
 pub mod algorithm_3903;
 pub mod algorithm_3904;
 pub mod algorithm_1541;
+pub mod algorithm_2778;
