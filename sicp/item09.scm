@@ -16,7 +16,7 @@
   ;; TODO: Decide when there are no candidates left to test.
   ;; TODO: Decide when the current candidate is the answer.
   ;; TODO: Otherwise move to the next candidate in tail position.
-  (cond ((> candidate (square candidate)) n)
+  (cond ((> (square candidate) n) n)
 	((divides? candidate n) candidate)
 	(else (find-divisor n (+ candidate 1)))))
 
