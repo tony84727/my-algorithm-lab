@@ -15,8 +15,8 @@
   ;; TODO: Use a smaller exponent and combine the returned remainder.
   ;; TODO: Reduce each combined product before returning it.
   (cond ((= exponent 0) 1)
-	((= 0 base) 1)
-	((even? exponent) (expmod (square base) (/ exponent 2) modulus))
+	((= 0 base) 0)
+	((even? exponent) (expmod (remainder (square base) modulus) (/ exponent 2) modulus))
 	(else (remainder (* (expmod base (- exponent 1) modulus) base) modulus))
   ))
 
