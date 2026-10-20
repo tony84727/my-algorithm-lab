@@ -333,3 +333,4 @@ pub mod algorithm_2897;
 pub mod algorithm_2913;
 pub mod algorithm_3551;
 pub mod algorithm_2089;
+pub mod algorithm_3886;
