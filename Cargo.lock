@@ -27,6 +27,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "algorithm"
+version = "0.1.0"
+dependencies = [
+ "criterion",
+ "json",
+ "quickcheck",
+ "regex",
+ "reqwest",
+ "ron",
+ "serde",
+ "test-case",
+ "tokio",
+]
+
+[[package]]
 name = "anes"
 version = "0.1.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1202,19 +1217,10 @@ dependencies = [
 ]
 
 [[package]]
-name = "my-algorithm-lab"
+name = "ml"
 version = "0.1.0"
 dependencies = [
- "criterion",
  "faer",
- "json",
- "quickcheck",
- "regex",
- "reqwest",
- "ron",
- "serde",
- "test-case",
- "tokio",
 ]
 
 [[package]]

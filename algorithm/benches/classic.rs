@@ -1,6 +1,6 @@
 use criterion::{criterion_group, criterion_main, Criterion};
 
-use my_algorithm_lab::classic::swapping;
+use algorithm::classic::swapping;
 
 pub fn swapping_large(c: &mut Criterion) {
     let mut large = c.benchmark_group("swapping(large)");

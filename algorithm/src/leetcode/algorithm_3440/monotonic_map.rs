@@ -29,7 +29,7 @@ where
         let to_remove: Vec<i32> = self
             .index
             .range(..gap_size)
-            .take_while(|(_, &v)| (self.dominate)(position, v))
+            .take_while(|&(_, &v)| (self.dominate)(position, v))
             .map(|(&k, _)| k)
             .collect();
         for k in to_remove.into_iter() {

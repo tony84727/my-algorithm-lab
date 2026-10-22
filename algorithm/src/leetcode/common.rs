@@ -38,7 +38,7 @@ pub mod test_utils {
     use std::{fs::File, path::Path};
 
     pub fn from_file<T: DeserializeOwned, P: AsRef<Path>>(path: P) -> T {
-        let mut f = File::open(path).unwrap();
+        let mut f = File::open(Path::new(env!("CARGO_MANIFEST_DIR")).join(path)).unwrap();
         ron::de::from_reader(&mut f).unwrap()
     }
 }

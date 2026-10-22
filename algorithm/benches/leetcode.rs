@@ -1,5 +1,5 @@
 use criterion::{criterion_group, criterion_main, BatchSize, Criterion};
-use my_algorithm_lab::leetcode::{algorithm_48, algorithm_49, algorithm_56, algorithm_76};
+use algorithm::leetcode::{algorithm_48, algorithm_49, algorithm_56, algorithm_76};
 
 pub fn leetcode_48(c: &mut Criterion) {
     fn create_matrix(size: usize) -> Vec<Vec<i32>> {
@@ -59,7 +59,7 @@ pub fn leetcode_49(c: &mut Criterion) {
 }
 
 pub fn leetcode_56(c: &mut Criterion) {
-    use my_algorithm_lab::leetcode::common::test_utils::from_file;
+    use algorithm::leetcode::common::test_utils::from_file;
     use serde::Deserialize;
     #[derive(Deserialize)]
     struct TestCase {

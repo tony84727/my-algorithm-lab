@@ -48,7 +48,9 @@ impl Question {
     }
 
     fn get_path(&self) -> PathBuf {
-        PathBuf::from("src/leetcode").join(self.module_name())
+        PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+            .join("src/leetcode")
+            .join(self.module_name())
     }
 
     fn ensure_dir(&self) {
@@ -67,7 +69,7 @@ impl Question {
     fn append_module_declartion(&self) {
         let mut leetcode_lib = OpenOptions::new()
             .append(true)
-            .open("src/leetcode/mod.rs")
+            .open(PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("src/leetcode/mod.rs"))
             .unwrap();
         writeln!(&mut leetcode_lib, "pub mod {};", self.module_name()).unwrap();
     }

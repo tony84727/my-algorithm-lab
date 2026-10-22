@@ -14,7 +14,7 @@ impl Solution {
             match projects
                 .iter()
                 .enumerate()
-                .find(|(_, &(_, requirement))| capital >= requirement)
+                .find(|&(_, &(_, requirement))| capital >= requirement)
             {
                 Some((i, (profit, _))) => {
                     total += profit;

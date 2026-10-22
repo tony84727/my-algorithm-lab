@@ -2,7 +2,7 @@
 /// # Examples
 ///
 /// ```rust
-/// use my_algorithm_lab::vecvec;
+/// use algorithm::vecvec;
 /// let mut expected = vec![];
 /// expected.push(vec![1,2,3]);
 /// expected.push(vec![4,5,6]);

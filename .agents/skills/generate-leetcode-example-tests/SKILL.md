@@ -12,9 +12,9 @@ WIP solution. Transcribe the examples; do not solve the algorithm.
 
 Extract the problem number and any explicit target path from the request. Inspect
 the target directory, its `README.md`, `mod.rs`, and its declaration in
-`src/leetcode/mod.rs`.
+`algorithm/src/leetcode/mod.rs`.
 
-The problem number, explicit `src/leetcode/algorithm_<id>/` path, and README must
+The problem number, explicit `algorithm/src/leetcode/algorithm_<id>/` path, and README must
 identify the same problem. If they disagree, stop before editing and ask the
 user to correct the mismatch. The target is verified only when every available
 identifier agrees and the WIP directory exists.
@@ -38,7 +38,7 @@ impl Solution {
 ```
 
 Preserve existing implementation code and existing tests. Ensure the target has
-a `pub mod algorithm_<id>;` declaration in `src/leetcode/mod.rs`, adding it only
+a `pub mod algorithm_<id>;` declaration in `algorithm/src/leetcode/mod.rs`, adding it only
 when absent. The interface is established when the tests can call one exact,
 known `Solution` method without guessing its public API.
 
@@ -48,7 +48,7 @@ Convert each user-provided `Input` and `Output` into exactly one test case,
 preserving order and naming cases `"example 1"`, `"example 2"`, and so on.
 Generate no inferred edge cases.
 
-Match the nearest analogous tests in `src/leetcode/`:
+Match the nearest analogous tests in `algorithm/src/leetcode/`:
 
 - For a pure return value, prefer one parameterized function with
   `test_case::test_case` and `#[test_case(inputs => output; "example N")]`.
@@ -72,9 +72,9 @@ Keep edits scoped to the target algorithm module, a missing module declaration,
 and formatting required for those edits. Run:
 
 ```bash
-rustfmt --edition 2021 --check src/leetcode/algorithm_<id>/mod.rs
-cargo test leetcode::algorithm_<id>::tests --no-run
-cargo test leetcode::algorithm_<id>::tests
+rustfmt --edition 2024 --check algorithm/src/leetcode/algorithm_<id>/mod.rs
+cargo test -p algorithm leetcode::algorithm_<id>::tests --no-run
+cargo test -p algorithm leetcode::algorithm_<id>::tests
 git diff --check
 ```
 
