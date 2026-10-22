@@ -32,11 +32,11 @@ impl Solution {
             let mut priority = max_prioirty;
             let variants = Self::vowel_variants(&q.to_lowercase());
             for variant in variants.into_iter() {
-                if let Some((p, correct)) = case_insensitive_index.get(&variant) {
-                    if *p < priority {
-                        answer = correct.clone();
-                        priority = *p;
-                    }
+                if let Some((p, correct)) = case_insensitive_index.get(&variant)
+                    && *p < priority
+                {
+                    answer = correct.clone();
+                    priority = *p;
                 }
             }
             corrected.push(answer)

@@ -20,10 +20,10 @@ fn check(k: usize, nums: &[i32]) -> bool {
         if down && sub[k - 1] > sub[0] {
             return false;
         }
-        if let Some(m) = last_max {
-            if m > min {
-                return false;
-            }
+        if let Some(m) = last_max
+            && m > min
+        {
+            return false;
         }
         last_max = Some(max);
     }

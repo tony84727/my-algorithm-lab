@@ -102,10 +102,10 @@ impl MovieRentingSystem {
                 let current_ref = current.borrow();
                 let shop = current_ref.shop;
                 let movie = current_ref.movie;
-                if let Some(last) = to_push.last() {
-                    if last == &current {
-                        continue;
-                    }
+                if let Some(last) = to_push.last()
+                    && last == &current
+                {
+                    continue;
                 }
                 collected.push(vec![shop, movie]);
             }
@@ -144,4 +144,3 @@ mod tests {
         assert_eq!(vec![0, 1], system.search(2));
     }
 }
-

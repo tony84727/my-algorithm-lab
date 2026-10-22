@@ -21,10 +21,10 @@ where
         }
     }
     fn insert(&mut self, gap_size: i32, position: usize) {
-        if let Some((_, existing)) = self.index.range(gap_size..).next() {
-            if (self.dominate)(*existing, position) {
-                return;
-            }
+        if let Some((_, existing)) = self.index.range(gap_size..).next()
+            && (self.dominate)(*existing, position)
+        {
+            return;
         }
         let to_remove: Vec<i32> = self
             .index

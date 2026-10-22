@@ -107,12 +107,10 @@ impl UnionFind {
     }
 
     fn component_size(&self) -> usize {
-        let count = self
-            .sets
+        self.sets
             .iter()
             .filter(|root| root.borrow().parent.is_none())
-            .count();
-        count
+            .count()
     }
 }
 

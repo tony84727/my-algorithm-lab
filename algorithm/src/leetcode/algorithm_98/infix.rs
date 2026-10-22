@@ -14,10 +14,10 @@ impl Solution {
             }
             let now = stack.pop_front().unwrap();
             let val = now.deref().borrow().val;
-            if let Some(m) = min {
-                if val <= m {
-                    return false;
-                }
+            if let Some(m) = min
+                && val <= m
+            {
+                return false;
             }
             min = Some(val);
             current = now.deref().borrow().right.clone();

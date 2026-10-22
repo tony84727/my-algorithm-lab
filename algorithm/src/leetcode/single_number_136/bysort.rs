@@ -24,10 +24,10 @@ impl Solution {
                 }
             }
         }
-        if let Some(last) = last {
-            if counter == 1 {
-                return last;
-            }
+        if let Some(last) = last
+            && counter == 1
+        {
+            return last;
         }
         0
     }

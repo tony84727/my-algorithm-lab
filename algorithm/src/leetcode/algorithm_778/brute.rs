@@ -34,25 +34,25 @@ impl Solution {
             })
         };
         visited.insert((r, c));
-        if r > 0 {
-            if let Some(m) = Self::dfs(visited, grid, m, n, r - 1, c, max) {
-                add_min(m);
-            }
+        if r > 0
+            && let Some(m) = Self::dfs(visited, grid, m, n, r - 1, c, max)
+        {
+            add_min(m);
         }
-        if r < m - 1 {
-            if let Some(m) = Self::dfs(visited, grid, m, n, r + 1, c, max) {
-                add_min(m);
-            }
+        if r < m - 1
+            && let Some(m) = Self::dfs(visited, grid, m, n, r + 1, c, max)
+        {
+            add_min(m);
         }
-        if c > 0 {
-            if let Some(m) = Self::dfs(visited, grid, m, n, r, c - 1, max) {
-                add_min(m);
-            }
+        if c > 0
+            && let Some(m) = Self::dfs(visited, grid, m, n, r, c - 1, max)
+        {
+            add_min(m);
         }
-        if c < n - 1 {
-            if let Some(m) = Self::dfs(visited, grid, m, n, r, c + 1, max) {
-                add_min(m);
-            }
+        if c < n - 1
+            && let Some(m) = Self::dfs(visited, grid, m, n, r, c + 1, max)
+        {
+            add_min(m);
         }
         visited.remove(&(r, c));
         min.map(|m| m.max(max))
