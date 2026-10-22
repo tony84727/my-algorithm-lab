@@ -9,13 +9,7 @@ impl Solution {
         while width > 0 {
             let h1 = height[i];
             let h2 = height[j];
-            let min_height = {
-                if h1 > h2 {
-                    h2
-                } else {
-                    h1
-                }
-            };
+            let min_height = { if h1 > h2 { h2 } else { h1 } };
             let area = (width as i32) * min_height;
             if area > max {
                 max = area;

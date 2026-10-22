@@ -20,11 +20,7 @@ impl Solution {
                 return 0;
             }
         }
-        if count == 4 {
-            sum
-        } else {
-            0
-        }
+        if count == 4 { sum } else { 0 }
     }
 }
 

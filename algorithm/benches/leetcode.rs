@@ -1,5 +1,5 @@
-use criterion::{criterion_group, criterion_main, BatchSize, Criterion};
 use algorithm::leetcode::{algorithm_48, algorithm_49, algorithm_56, algorithm_76};
+use criterion::{BatchSize, Criterion, criterion_group, criterion_main};
 
 pub fn leetcode_48(c: &mut Criterion) {
     fn create_matrix(size: usize) -> Vec<Vec<i32>> {

@@ -28,11 +28,7 @@ impl Solution {
         Self::reverse_list(out)
     }
     fn node_number(node: &Option<Box<ListNode>>) -> i32 {
-        if let Some(node) = node {
-            node.val
-        } else {
-            0
-        }
+        if let Some(node) = node { node.val } else { 0 }
     }
     fn reverse_list(list: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
         let mut reversed = None;

@@ -4,11 +4,7 @@ pub struct Solution;
 
 impl Solution {
     fn sign(n: i32) -> i32 {
-        if n >= 0 {
-            1
-        } else {
-            -1
-        }
+        if n >= 0 { 1 } else { -1 }
     }
     pub fn fraction_to_decimal(numerator: i32, denominator: i32) -> String {
         let sign = if Self::sign(numerator) * Self::sign(denominator) > 0 {

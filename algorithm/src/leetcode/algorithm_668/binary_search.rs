@@ -4,11 +4,7 @@ impl Solution {
     pub fn find_kth_number(m: i32, n: i32, k: i32) -> i32 {
         let count = |row: i32, x: i32| {
             let i = x / row;
-            if i > n {
-                n
-            } else {
-                i
-            }
+            if i > n { n } else { i }
         };
         let mut start = 1;
         let mut end = m * n;

@@ -11,11 +11,7 @@ impl Solution {
                 even += 1;
             }
         }
-        if even > odd {
-            odd
-        } else {
-            even
-        }
+        if even > odd { odd } else { even }
     }
 }
 

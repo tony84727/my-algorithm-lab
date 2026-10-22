@@ -6,8 +6,8 @@ use std::{
 };
 
 use reqwest::{
-    cookie::{CookieStore, Jar},
     Url,
+    cookie::{CookieStore, Jar},
 };
 use serde::{Deserialize, Serialize};
 

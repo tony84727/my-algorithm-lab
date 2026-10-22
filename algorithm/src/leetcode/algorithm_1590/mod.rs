@@ -25,11 +25,7 @@ impl Solution {
             map.insert(prefix_rem, i as i32);
         }
 
-        if min_len >= n as i32 {
-            -1
-        } else {
-            min_len
-        }
+        if min_len >= n as i32 { -1 } else { min_len }
     }
 }
 
