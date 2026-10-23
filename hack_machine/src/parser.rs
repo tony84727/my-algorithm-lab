@@ -2,13 +2,16 @@ use nom::{
     IResult, Parser,
     branch::alt,
     bytes::complete::tag,
-    character::complete::{alphanumeric1, digit1, line_ending, newline, not_line_ending, space0},
-    combinator::{map, map_res},
-    multi::{many0, separated_list0},
+    character::complete::{
+        alphanumeric1, char, digit1, line_ending, newline, not_line_ending, one_of, space0,
+    },
+    combinator::{map, map_res, opt, value, verify},
+    error::ParseError,
+    multi::{fold_many1, many0, separated_list0},
     sequence::{delimited, preceded},
 };
 
-use crate::ast::{AArgs, Expr, Program};
+use crate::ast::{AArgs, CArgs, Destination, Expr, Jump, Operation, Program};
 
 fn label<'p>(input: &'p str) -> IResult<&'p str, Expr<'p>> {
     map(delimited(tag("("), alphanumeric1, tag(")")), Expr::Label).parse(input)
@@ -41,8 +44,170 @@ fn blank_line(input: &str) -> IResult<&str, ()> {
     nom::combinator::value((), (space0, line_ending)).parse(input)
 }
 
+fn ws<'a, O, E, P>(parser: P) -> impl Parser<&'a str, Output = O, Error = E>
+where
+    P: Parser<&'a str, Output = O, Error = E>,
+    E: ParseError<&'a str>,
+{
+    delimited(space0, parser, space0)
+}
+
+fn d_dest(input: &str) -> IResult<&str, Destination> {
+    map(
+        verify(
+            fold_many1(
+                one_of("AMD"),
+                || (0_u8, 0_usize),
+                |(flag, count), c| {
+                    let new_flag = match c {
+                        'A' => 1 << 2,
+                        'M' => 1,
+                        'D' => 1 << 1,
+                        _ => panic!("parser malfunction"),
+                    };
+                    (flag | new_flag, count + 1)
+                },
+            ),
+            |(flag, count)| flag.count_ones() == (*count as u32),
+        ),
+        |(flag, _)| Destination(flag),
+    )
+    .parse(input)
+}
+
+fn constant_compute(input: &str) -> IResult<&str, Operation> {
+    alt((
+        value(Operation::Zero, ws(tag("0"))),
+        value(Operation::One, ws(tag("1"))),
+        value(Operation::NegativeOne, (ws(tag("-")), ws(tag("1")))),
+        value(Operation::A, ws(tag("A"))),
+        value(Operation::M, ws(tag("M"))),
+        value(Operation::D, ws(tag("D"))),
+    ))
+    .parse(input)
+}
+
+fn increase_decrease_compute(input: &str) -> IResult<&str, Operation> {
+    alt((
+        value(
+            Operation::IncreaseA,
+            (ws(char('A')), ws(char('+')), ws(char('1'))),
+        ),
+        value(
+            Operation::IncreaseM,
+            (ws(char('M')), ws(char('+')), ws(char('1'))),
+        ),
+        value(
+            Operation::IncreaseD,
+            (ws(char('D')), ws(char('+')), ws(char('1'))),
+        ),
+        value(
+            Operation::DecreaseA,
+            (ws(char('A')), ws(char('-')), ws(char('1'))),
+        ),
+        value(
+            Operation::DecreaseM,
+            (ws(char('M')), ws(char('-')), ws(char('1'))),
+        ),
+        value(
+            Operation::DecreaseD,
+            (ws(char('D')), ws(char('-')), ws(char('1'))),
+        ),
+    ))
+    .parse(input)
+}
+
+fn d_compute(input: &str) -> IResult<&str, Operation> {
+    alt((
+        value(Operation::NotA, (ws(char('!')), ws(char('A')))),
+        value(Operation::NotM, (ws(char('!')), ws(char('M')))),
+        value(Operation::NotD, (ws(char('!')), ws(char('D')))),
+        value(Operation::NegativeA, (ws(char('-')), ws(char('A')))),
+        value(Operation::NegativeM, (ws(char('-')), ws(char('M')))),
+        value(Operation::NegativeD, (ws(char('-')), ws(char('D')))),
+        value(
+            Operation::DPlusA,
+            (ws(char('D')), ws(char('+')), ws(char('A'))),
+        ),
+        value(
+            Operation::DPlusM,
+            (ws(char('D')), ws(char('+')), ws(char('M'))),
+        ),
+        value(
+            Operation::DMinusA,
+            (ws(char('D')), ws(char('-')), ws(char('A'))),
+        ),
+        value(
+            Operation::AMinusD,
+            (ws(char('A')), ws(char('-')), ws(char('D'))),
+        ),
+        value(
+            Operation::DAndA,
+            (ws(char('D')), ws(char('&')), ws(char('A'))),
+        ),
+        value(
+            Operation::DOrA,
+            (ws(char('D')), ws(char('|')), ws(char('A'))),
+        ),
+        value(
+            Operation::DMinusM,
+            (ws(char('D')), ws(char('-')), ws(char('M'))),
+        ),
+        value(
+            Operation::MMinusD,
+            (ws(char('M')), ws(char('-')), ws(char('D'))),
+        ),
+        value(
+            Operation::DAndM,
+            (ws(char('D')), ws(char('&')), ws(char('M'))),
+        ),
+        value(
+            Operation::DOrM,
+            (ws(char('D')), ws(char('|')), ws(char('M'))),
+        ),
+        increase_decrease_compute,
+        constant_compute,
+    ))
+    .parse(input)
+}
+
+fn d_jump(input: &str) -> IResult<&str, Jump> {
+    alt((
+        value(Jump::JGT, tag("JGT")),
+        value(Jump::JEQ, tag("JEQ")),
+        value(Jump::JGE, tag("JGE")),
+        value(Jump::JLT, tag("JLT")),
+        value(Jump::JNE, tag("JNE")),
+        value(Jump::JLE, tag("JLE")),
+        value(Jump::JMP, tag("JMP")),
+    ))
+    .parse(input)
+}
+
+fn d_command(input: &str) -> IResult<&str, Expr<'_>> {
+    map(
+        (
+            opt((d_dest, ws(tag("=")))),
+            ws(d_compute),
+            opt(preceded(ws(char(';')), ws(d_jump))),
+        ),
+        |(dest, comp, jump)| {
+            Expr::COp(CArgs {
+                destination: dest.map(|(x, _)| x),
+                operation: comp,
+                jump,
+            })
+        },
+    )
+    .parse(input)
+}
+
 fn expr(input: &str) -> IResult<&'_ str, Expr<'_>> {
-    preceded(many0(blank_line), alt((comment, label, a_command))).parse(input)
+    preceded(
+        many0(blank_line),
+        alt((comment, label, a_command, d_command)),
+    )
+    .parse(input)
 }
 
 pub fn parse(input: &str) -> IResult<&'_ str, Program<'_>> {
@@ -52,8 +217,8 @@ pub fn parse(input: &str) -> IResult<&'_ str, Program<'_>> {
 #[cfg(test)]
 mod tests {
     use crate::{
-        ast::{AArgs, Expr},
-        parser::expr,
+        ast::{AArgs, CArgs, Destination, Expr, Jump, Operation},
+        parser::{d_command, d_compute, expr},
     };
 
     #[test]
@@ -78,5 +243,43 @@ mod tests {
     fn test_comment() {
         let (_remaining, parsed) = expr("// this is a comment").unwrap();
         assert_eq!(Expr::Comment("this is a comment"), parsed,);
+    }
+
+    #[test]
+    fn test_parse_compute() {
+        let (_remaining, parsed) = d_compute("-1").unwrap();
+        assert_eq!(Operation::NegativeOne, parsed);
+    }
+
+    #[test]
+    fn test_parse_compute_negative_one_with_random_spaces() {
+        let (_remaining, parsed) = d_compute("- 1").unwrap();
+        assert_eq!(Operation::NegativeOne, parsed);
+    }
+
+    #[test]
+    fn test_d_command_parsing() {
+        let (_remaining, parsed) = d_command("MD = 1").unwrap();
+        assert_eq!(
+            Expr::COp(CArgs {
+                destination: Some(Destination(3)),
+                operation: Operation::One,
+                jump: None
+            }),
+            parsed
+        );
+    }
+
+    #[test]
+    fn test_d_command_parsing_1() {
+        let (_remaining, parsed) = d_command("AMD = D+1; JLE").unwrap();
+        assert_eq!(
+            Expr::COp(CArgs {
+                destination: Some(Destination(7)),
+                operation: Operation::IncreaseD,
+                jump: Some(Jump::JLE),
+            }),
+            parsed
+        );
     }
 }

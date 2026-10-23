@@ -4,7 +4,7 @@ pub enum AArgs<'p> {
     Symbol(&'p str),
 }
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone)]
 pub enum Jump {
     Noop,
     JGT,
@@ -16,7 +16,7 @@ pub enum Jump {
     JMP,
 }
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone)]
 pub enum Operation {
     Zero,
     One,
@@ -49,22 +49,13 @@ pub enum Operation {
 }
 
 #[derive(Debug, PartialEq)]
-pub enum Destination {
-    Noop,
-    A,
-    M,
-    D,
-    AM,
-    AD,
-    MD,
-    AMD,
-}
+pub struct Destination(pub u8);
 
 #[derive(Debug, PartialEq)]
 pub struct CArgs {
-    pub destination: Destination,
+    pub destination: Option<Destination>,
     pub operation: Operation,
-    pub jump: Jump,
+    pub jump: Option<Jump>,
 }
 
 #[derive(Debug, PartialEq)]
