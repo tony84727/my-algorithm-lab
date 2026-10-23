@@ -74,4 +74,5 @@ pub enum Expr<'p> {
     Label(&'p str),
 }
 
+#[derive(Debug, PartialEq)]
 pub struct Program<'p>(pub Vec<Expr<'p>>);
