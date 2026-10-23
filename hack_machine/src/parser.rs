@@ -2,9 +2,9 @@ use nom::{
     IResult, Parser,
     branch::alt,
     bytes::complete::tag,
-    character::complete::{alphanumeric1, digit1},
+    character::complete::{alphanumeric1, digit1, line_ending, newline, not_line_ending, space0},
     combinator::{map, map_res},
-    multi::many0,
+    multi::{many0, separated_list0},
     sequence::{delimited, preceded},
 };
 
@@ -30,12 +30,23 @@ fn a_command(input: &str) -> IResult<&str, Expr<'_>> {
     .parse(input)
 }
 
+fn comment(input: &str) -> IResult<&str, Expr<'_>> {
+    map(preceded(tag("//"), not_line_ending), |x: &str| {
+        Expr::Comment(x.trim())
+    })
+    .parse(input)
+}
+
+fn blank_line(input: &str) -> IResult<&str, ()> {
+    nom::combinator::value((), (space0, line_ending)).parse(input)
+}
+
 fn expr(input: &str) -> IResult<&'_ str, Expr<'_>> {
-    alt((label, a_command)).parse(input)
+    preceded(many0(blank_line), alt((comment, label, a_command))).parse(input)
 }
 
 pub fn parse(input: &str) -> IResult<&'_ str, Program<'_>> {
-    map(many0(expr), Program).parse(input)
+    map(separated_list0(newline, expr), Program).parse(input)
 }
 
 #[cfg(test)]
@@ -61,5 +72,11 @@ mod tests {
     fn test_a_command_symbol() {
         let (_remaining, parsed) = expr("@screen").unwrap();
         assert_eq!(Expr::AOp(AArgs::Symbol("screen")), parsed);
+    }
+
+    #[test]
+    fn test_comment() {
+        let (_remaining, parsed) = expr("// this is a comment").unwrap();
+        assert_eq!(Expr::Comment("this is a comment"), parsed,);
     }
 }

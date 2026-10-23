@@ -72,6 +72,7 @@ pub enum Expr<'p> {
     AOp(AArgs<'p>),
     COp(CArgs),
     Label(&'p str),
+    Comment(&'p str),
 }
 
 #[derive(Debug, PartialEq)]
