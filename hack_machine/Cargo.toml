@@ -1,0 +1,6 @@
+[package]
+name = "hack_machine"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
