@@ -1,8 +1,10 @@
-pub enum AArgs {
+#[derive(Debug, PartialEq)]
+pub enum AArgs<'p> {
     Address(u16),
-    Symbol(String),
+    Symbol(&'p str),
 }
 
+#[derive(Debug, PartialEq)]
 pub enum Jump {
     Noop,
     JGT,
@@ -14,6 +16,7 @@ pub enum Jump {
     JMP,
 }
 
+#[derive(Debug, PartialEq)]
 pub enum Operation {
     Zero,
     One,
@@ -45,6 +48,7 @@ pub enum Operation {
     DOrM,
 }
 
+#[derive(Debug, PartialEq)]
 pub enum Destination {
     Noop,
     A,
@@ -56,14 +60,18 @@ pub enum Destination {
     AMD,
 }
 
+#[derive(Debug, PartialEq)]
 pub struct CArgs {
     pub destination: Destination,
     pub operation: Operation,
     pub jump: Jump,
 }
 
-pub enum Expr {
-    AOp(AArgs),
+#[derive(Debug, PartialEq)]
+pub enum Expr<'p> {
+    AOp(AArgs<'p>),
     COp(CArgs),
-    Label,
+    Label(&'p str),
 }
+
+pub struct Program<'p>(pub Vec<Expr<'p>>);
