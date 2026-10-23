@@ -2,12 +2,13 @@
 
 ## Project Structure & Module Organization
 
-The main crate lives in `src/`. LeetCode solutions are organized under
-`src/leetcode/algorithm_<id>/`, usually with `mod.rs`, optional alternative
+The Rust workspace has two members: `algorithm/` and `ml/`, using edition 2024
+and resolver 3. LeetCode solutions are organized under
+`algorithm/src/leetcode/algorithm_<id>/`, usually with `mod.rs`, optional alternative
 implementations such as `brute.rs` or `dp.rs`, and a problem `README.md`.
-Reusable textbook algorithms belong in `src/classic/`, while matrix and
-machine-learning experiments live in `src/ml/`. Criterion benchmarks are in
-`benches/`.
+Reusable textbook algorithms belong in `algorithm/src/classic/`, while matrix and
+machine-learning experiments live in `ml/src/`. Criterion benchmarks are in
+`algorithm/benches/`.
 
 The `c/` tree is a separate GNU Autotools project with implementations and
 `*_test.c` files. Python experiments live in `python/`; grouped solutions keep
@@ -15,12 +16,12 @@ tests beside their implementations, for example `python/leetcode_3459/`.
 
 ## Build, Test, and Development Commands
 
-- `cargo build` compiles the Rust crate and the `create` binary.
-- `cargo test` runs all Rust unit and parameterized tests.
+- `cargo build --workspace` compiles both Rust crates and the `create` binary.
+- `cargo test --workspace` runs all Rust unit and parameterized tests.
 - `cargo fmt --all -- --check` verifies standard Rust formatting.
-- `cargo clippy --all-targets --all-features -- -D warnings` matches the CI lint
+- `cargo clippy --workspace --all-targets --all-features -- -D warnings` matches the CI lint
   gate.
-- `cargo bench` runs the Criterion suites in `benches/`.
+- `cargo bench --workspace` runs the Criterion suites in `algorithm/benches/`.
 - `cd c && autoreconf -i && ./configure && make check` configures, builds, and
   tests the C project.
 - `cd python && uv sync` creates the locked Python 3.13 environment.

@@ -1,0 +1,7 @@
+[package]
+name = "ml"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+faer = "0"
