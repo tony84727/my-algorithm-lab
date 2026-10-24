@@ -68,3 +68,14 @@ pub enum Expr<'p> {
 
 #[derive(Debug, PartialEq)]
 pub struct Program<'p>(pub Vec<Expr<'p>>);
+
+impl<'p> Program<'p> {
+    pub fn strip_comments(self) -> Self {
+        Program(
+            self.0
+                .into_iter()
+                .filter(|x| !matches!(x, Expr::Comment(_)))
+                .collect(),
+        )
+    }
+}
