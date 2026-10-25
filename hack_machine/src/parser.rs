@@ -211,7 +211,7 @@ fn d_command(input: &str) -> IResult<&str, Expr<'_>> {
 fn expr(input: &str) -> IResult<&'_ str, Expr<'_>> {
     preceded(
         many0(blank_line),
-        alt((comment, label, a_command, d_command)),
+        ws(alt((comment, label, a_command, d_command))),
     )
     .parse(input)
 }
@@ -338,5 +338,24 @@ A=A+1
             ]),
             parsed
         )
+    }
+
+    #[test]
+    fn test_parse_command_with_tab() {
+        let (_remaining, parsed) = expr("\tA+1;JEQ").unwrap();
+        assert_eq!(
+            Expr::COp(CArgs {
+                destination: None,
+                operation: Operation::IncreaseA,
+                jump: Some(Jump::JEQ)
+            }),
+            parsed
+        );
+    }
+
+    #[test]
+    fn test_parse_command_with_prefix_spaces() {
+        let (_remaining, parsed) = expr("   @TEST").unwrap();
+        assert_eq!(Expr::AOp(AArgs::Symbol("TEST")), parsed);
     }
 }

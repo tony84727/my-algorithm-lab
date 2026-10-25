@@ -19,5 +19,5 @@ fn main() {
         return;
     }
     let image = generate(program).expect("generate code");
-    println!("{}", encode_image(&image));
+    print!("{}", encode_image(&image));
 }
