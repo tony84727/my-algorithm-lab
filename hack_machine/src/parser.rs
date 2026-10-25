@@ -2,7 +2,7 @@ use nom::{
     IResult, Parser,
     branch::alt,
     bytes::complete::{tag, take_while, take_while1},
-    character::complete::{char, digit1, line_ending, newline, not_line_ending, one_of, space0},
+    character::complete::{char, digit1, line_ending, not_line_ending, one_of, space0},
     combinator::{map, map_res, opt, recognize, value, verify},
     error::ParseError,
     multi::{fold_many1, many0, separated_list0},
@@ -217,7 +217,7 @@ fn expr(input: &str) -> IResult<&'_ str, Expr<'_>> {
 }
 
 pub fn parse(input: &str) -> IResult<&'_ str, Program<'_>> {
-    map(separated_list0(newline, expr), Program).parse(input)
+    map(separated_list0(line_ending, expr), Program).parse(input)
 }
 
 #[cfg(test)]
@@ -305,6 +305,27 @@ A=A+1
         "#,
         )
         .unwrap();
+        assert_eq!(
+            Program(vec![
+                Expr::Comment("this is a comment"),
+                Expr::AOp(AArgs::Address(1)),
+                Expr::COp(CArgs {
+                    destination: Some(Destination(0b100)),
+                    operation: Operation::IncreaseA,
+                    jump: None
+                })
+            ]),
+            parsed
+        )
+    }
+    #[test]
+    fn test_parse_program_with_crlf() {
+        let source = r#"// this is a comment
+@1
+A=A+1
+        "#
+        .replace("\n", "\r\n");
+        let (_remaining, parsed) = parse(&source).unwrap();
         assert_eq!(
             Program(vec![
                 Expr::Comment("this is a comment"),
