@@ -19,7 +19,7 @@ fn identifier(input: &str) -> IResult<&str, &str> {
     .parse(input)
 }
 
-fn label<'p>(input: &str) -> IResult<&str, Expr<'_>> {
+fn label(input: &str) -> IResult<&str, Expr<'_>> {
     map(delimited(tag("("), identifier, tag(")")), Expr::Label).parse(input)
 }
 
@@ -223,8 +223,8 @@ pub fn parse(input: &str) -> IResult<&'_ str, Program<'_>> {
 #[cfg(test)]
 mod tests {
     use crate::{
-        ast::{AArgs, CArgs, Destination, Expr, Jump, Operation},
-        parser::{d_command, d_compute, expr},
+        ast::{AArgs, CArgs, Destination, Expr, Jump, Operation, Program},
+        parser::{d_command, d_compute, expr, parse},
     };
 
     #[test]
@@ -293,5 +293,29 @@ mod tests {
             }),
             parsed
         );
+    }
+
+    #[test]
+    fn test_parse_program_with_comment_and_empty_lines() {
+        let (_remaining, parsed) = parse(
+            r#"// this is a comment
+
+@1
+A=A+1
+        "#,
+        )
+        .unwrap();
+        assert_eq!(
+            Program(vec![
+                Expr::Comment("this is a comment"),
+                Expr::AOp(AArgs::Address(1)),
+                Expr::COp(CArgs {
+                    destination: Some(Destination(0b100)),
+                    operation: Operation::IncreaseA,
+                    jump: None
+                })
+            ]),
+            parsed
+        )
     }
 }
