@@ -1,20 +1,26 @@
 use nom::{
     IResult, Parser,
     branch::alt,
-    bytes::complete::tag,
-    character::complete::{
-        alphanumeric1, char, digit1, line_ending, newline, not_line_ending, one_of, space0,
-    },
-    combinator::{map, map_res, opt, value, verify},
+    bytes::complete::{tag, take_while, take_while1},
+    character::complete::{char, digit1, line_ending, newline, not_line_ending, one_of, space0},
+    combinator::{map, map_res, opt, recognize, value, verify},
     error::ParseError,
     multi::{fold_many1, many0, separated_list0},
-    sequence::{delimited, preceded},
+    sequence::{delimited, pair, preceded},
 };
 
 use crate::ast::{AArgs, CArgs, Destination, Expr, Jump, Operation, Program};
 
-fn label<'p>(input: &'p str) -> IResult<&'p str, Expr<'p>> {
-    map(delimited(tag("("), alphanumeric1, tag(")")), Expr::Label).parse(input)
+fn identifier(input: &str) -> IResult<&str, &str> {
+    recognize(pair(
+        take_while1(|c: char| c.is_ascii_alphabetic() || "$_.:".contains(c)),
+        take_while(|c: char| c.is_ascii_alphanumeric() || "$_.:".contains(c)),
+    ))
+    .parse(input)
+}
+
+fn label<'p>(input: &str) -> IResult<&str, Expr<'_>> {
+    map(delimited(tag("("), identifier, tag(")")), Expr::Label).parse(input)
 }
 
 fn a_command_address(input: &str) -> IResult<&str, AArgs<'_>> {
@@ -22,7 +28,7 @@ fn a_command_address(input: &str) -> IResult<&str, AArgs<'_>> {
 }
 
 fn a_command_symbol(input: &str) -> IResult<&str, AArgs<'_>> {
-    map(alphanumeric1, AArgs::Symbol).parse(input)
+    map(identifier, AArgs::Symbol).parse(input)
 }
 
 fn a_command(input: &str) -> IResult<&str, Expr<'_>> {
@@ -225,6 +231,12 @@ mod tests {
     fn test_label() {
         let (_remaining, parsed) = expr("(LOOP)").unwrap();
         assert_eq!(Expr::Label("LOOP"), parsed);
+    }
+
+    #[test]
+    fn test_label_case_1() {
+        let (_remaining, parsed) = expr("(END_LT)").unwrap();
+        assert_eq!(Expr::Label("END_LT"), parsed);
     }
 
     #[test]
