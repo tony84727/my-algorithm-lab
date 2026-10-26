@@ -157,7 +157,7 @@ D=1
 (END)
 M=1
 "#;
-        let (_, program) = parse(&program_code).unwrap();
+        let (_, program) = parse(program_code).unwrap();
         let sym_table = build_symbol_table(&program.strip_comments());
         assert_eq!(1, *sym_table.get("LOOP").unwrap());
         assert_eq!(3, *sym_table.get("END").unwrap());
